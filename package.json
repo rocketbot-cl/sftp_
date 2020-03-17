@@ -1,0 +1,307 @@
+{
+    "author":"Marcela Vergara",
+    "description": "Conecta y gestiona un SFTP",
+    "disclaimer":"THERE IS NO WARRANTY FOR THE PROGRAM, TO THE EXTENT PERMITTED BY APPLICABLE LAW. EXCEPT WHEN OTHERWISE STATED IN WRITING THE COPYRIGHT HOLDERS AND/OR OTHER PARTIES PROVIDE THE PROGRAM “AS IS” WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS WITH YOU. SHOULD THE PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF ALL NECESSARY SERVICING, REPAIR OR CORRECTION.",
+    "version":"0.1",
+    "license": "MIT",
+    "homepage":"http://rocketbot.co/",
+    "linux": true,
+    "windows":true,
+    "mac":true,
+    "docker":true,
+    "name": "sftp_",
+    "dependencies": {
+        "pysftp" : "0.2.9"
+    },
+    "title": {
+        "en": "SFTP",
+        "es": "SFTP"
+    },
+    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyppVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMi1jMDAxIDYzLjEzOTQzOSwgMjAxMC8xMC8xMi0wODo0NTozMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIEVsZW1lbnRzIDExLjAgV2luZG93cyIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDoxQzI3N0IxQ0U3MzAxMUU1QTk3QUM1NjJBMEUwOEVGNyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDoxQzI3N0IxREU3MzAxMUU1QTk3QUM1NjJBMEUwOEVGNyI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjFDMjc3QjFBRTczMDExRTVBOTdBQzU2MkEwRTA4RUY3IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjFDMjc3QjFCRTczMDExRTVBOTdBQzU2MkEwRTA4RUY3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+tyxr4wAACsVJREFU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",
+    "children": [
+
+        {
+            "en": {
+                "title": "Connect to SFTP",
+                "description": "Connect to SFTP",
+                "title_options": "Select Option",
+                "options":null
+            },
+            "es": {
+                "title": "Conectar con SFTP",
+                "description": "Conectar con SFTP",
+                "title_options": "Seleccione una opción",
+                "options": null
+            },
+            "form": {
+                "css": "modal-lg",
+                "inputs": [
+                    {
+                        "type": "input",
+                        "placeholder": {
+                            "es": "test.sftp.com",
+                            "en": "test.sftp.com"
+                        },
+                        "title": {
+                            "es": "Servidor:",
+                            "en": "Server:"
+                        },
+                        "id": "server_",
+                        "css": "col-md-6"
+                    },
+                    {
+                        "type": "input",
+                        "placeholder": {
+                            "es": "user@test.com",
+                            "en": "user@test.com"
+                        },
+                        "title": {
+                            "es": "Usuario:",
+                            "en": "User:"
+                        },
+                        "id": "user_",
+                        "css": "col-md-6"
+                    },
+                    {
+                        "type": "input",
+                        "placeholder": {
+                            "es": "******",
+                            "en": "******"
+                        },
+                        "title": {
+                            "es": "Contraseña:",
+                            "en": "Password:"
+                        },
+                        "id": "pass_",
+                        "css": "col-md-6"
+                    },
+                    {
+                        "type": "input",
+                        "placeholder": {
+                            "es": "Variable",
+                            "en": "Variable"
+                        },
+                        "title": {
+                            "es": "Asignar resultado a variable:",
+                            "en": "Assign result to variable:"
+                        },
+                        "help": {
+                            "es": "Nombre de variable sin {}",
+                            "en": "Variable name without {}"
+                        },
+                        "id": "var_",
+                        "css": "col-md-6"
+                    }
+                ]
+            },
+            "video_youtube": "aMV6cXPMMSo",
+            "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyppVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMi1jMDAxIDYzLjEzOTQzOSwgMjAxMC8xMC8xMi0wODo0NTozMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIEVsZW1lbnRzIDExLjAgV2luZG93cyIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDoxQzI3N0IxQ0U3MzAxMUU1QTk3QUM1NjJBMEUwOEVGNyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDoxQzI3N0IxREU3MzAxMUU1QTk3QUM1NjJBMEUwOEVGNyI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjFDMjc3QjFBRTczMDExRTVBOTdBQzU2MkEwRTA4RUY3IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjFDMjc3QjFCRTczMDExRTVBOTdBQzU2MkEwRTA4RUY3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+tyxr4wAACsVJREFU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",
+            "module": "conn_sftp",
+            "module_name": "sftp_",
+            "visible": true,
+            "options": false,
+            "father": "module",
+            "group": "scripts",
+            "linux": true,
+            "windows":true,
+            "mac":true,
+            "docker":true
+        },
+        {
+            "en": {
+                "title": "Go to directory",
+                "description": "Go to directory",
+                "title_options": "Select Option",
+                "options":null
+            },
+            "es": {
+                "title": "Ir a directorio",
+                "description": "Ir a directorio",
+                "title_options": "Seleccione una opción",
+                "options": null
+            },
+            "form": {
+                "css": "modal-lg",
+                "inputs": [
+                    {
+                        "type": "input",
+                        "placeholder": {
+                            "es": "test",
+                            "en": "test"
+                        },
+                        "title": {
+                            "es": "Nombre de directorio:",
+                            "en": "Directory name:"
+                        },
+                        "id": "dir_",
+                        "css": "col-md-6"
+                    },
+                    {
+                        "type": "input",
+                        "placeholder": {
+                            "es": "Variable",
+                            "en": "Variable"
+                        },
+                        "title": {
+                            "es": "Guardar directorio actual en variable:",
+                            "en": "Save current directory in variable:"
+                        },
+                        "help": {
+                            "es": "Nombre de variable sin {}",
+                            "en": "Variable name without {}"
+                        },
+                        "id": "var_",
+                        "css": "col-md-6"
+                    }
+                ]
+            },
+            "video_youtube": "aMV6cXPMMSo",
+            "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyppVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMi1jMDAxIDYzLjEzOTQzOSwgMjAxMC8xMC8xMi0wODo0NTozMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIEVsZW1lbnRzIDExLjAgV2luZG93cyIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDoxQzI3N0IxQ0U3MzAxMUU1QTk3QUM1NjJBMEUwOEVGNyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDoxQzI3N0IxREU3MzAxMUU1QTk3QUM1NjJBMEUwOEVGNyI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjFDMjc3QjFBRTczMDExRTVBOTdBQzU2MkEwRTA4RUY3IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjFDMjc3QjFCRTczMDExRTVBOTdBQzU2MkEwRTA4RUY3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+tyxr4wAACsVJREFU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",
+            "module": "go_dir",
+            "module_name": "sftp_",
+            "visible": true,
+            "options": false,
+            "father": "module",
+            "group": "scripts",
+            "linux": true,
+            "windows":true,
+            "mac":true,
+            "docker":true
+        },
+        {
+            "en": {
+                "title": "Upload file",
+                "description": "Upload file",
+                "title_options": "Select Option",
+                "options":null
+            },
+            "es": {
+                "title": "Subir archivo",
+                "description": "Subir archivo",
+                "title_options": "Seleccione una opción",
+                "options": null
+            },
+            "form": {
+                "css": "modal-lg",
+                "inputs": [
+                    {
+                        "type": "file_select",
+                        "placeholder": {
+                            "es": "C:\\Users\\Usuario\\Desktop\\test.png",
+                            "en": "C:\\Users\\User\\Desktop\\test.png"
+                        },
+                        "title": {
+                            "es": "Archivo a subir:",
+                            "en": "File to upload:"
+                        },
+                        "id": "file_",
+                        "css": "col-md-12"
+                    },
+                    {
+                        "type": "input",
+                        "placeholder": {
+                            "es": "Variable",
+                            "en": "Variable"
+                        },
+                        "title": {
+                            "es": "Asignar resultado en variable:",
+                            "en": "Assign result to variable:"
+                        },
+                        "help": {
+                            "es": "Nombre de variable sin {}",
+                            "en": "Variable name without {}"
+                        },
+                        "id": "var_",
+                        "css": "col-md-12"
+                    }
+                ]
+            },
+            "video_youtube": "aMV6cXPMMSo",
+            "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyppVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMi1jMDAxIDYzLjEzOTQzOSwgMjAxMC8xMC8xMi0wODo0NTozMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIEVsZW1lbnRzIDExLjAgV2luZG93cyIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDoxQzI3N0IxQ0U3MzAxMUU1QTk3QUM1NjJBMEUwOEVGNyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDoxQzI3N0IxREU3MzAxMUU1QTk3QUM1NjJBMEUwOEVGNyI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjFDMjc3QjFBRTczMDExRTVBOTdBQzU2MkEwRTA4RUY3IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjFDMjc3QjFCRTczMDExRTVBOTdBQzU2MkEwRTA4RUY3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+tyxr4wAACsVJREFU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",
+            "module": "upload_",
+            "module_name": "sftp_",
+            "visible": true,
+            "options": false,
+            "father": "module",
+            "group": "scripts",
+            "linux": true,
+            "windows":true,
+            "mac":true,
+            "docker":true
+        },
+        {
+            "en": {
+                "title": "Download file",
+                "description": "Download file",
+                "title_options": "Select Option",
+                "options":null
+            },
+            "es": {
+                "title": "Descargar archivo",
+                "description": "Descargar archivo",
+                "title_options": "Seleccione una opción",
+                "options": null
+            },
+            "form": {
+                "css": "modal-lg",
+                "inputs": [
+                    {
+                        "type": "input",
+                        "placeholder": {
+                            "es": "test.png",
+                            "en": "test.png"
+                        },
+                        "title": {
+                            "es": "Nombre de archivo a descargar:",
+                            "en": "File name to download:"
+                        },
+                        "id": "file_",
+                        "css": "col-md-12"
+                    },
+                    {
+                        "type": "folder_select",
+                        "placeholder": {
+                            "es": "C:\\Users\\Usuario\\Desktop",
+                            "en": "C:\\Users\\User\\Desktop"
+                        },
+                        "title": {
+                            "es": "Ruta donde descargar:",
+                            "en": "Path to download:"
+                        },
+                        "id": "path_",
+                        "css": "col-md-12"
+                    },
+                    {
+                        "type": "input",
+                        "placeholder": {
+                            "es": "Variable",
+                            "en": "Variable"
+                        },
+                        "title": {
+                            "es": "Asignar resultado en variable:",
+                            "en": "Assign result to variable:"
+                        },
+                        "help": {
+                            "es": "Nombre de variable sin {}",
+                            "en": "Variable name without {}"
+                        },
+                        "id": "var_",
+                        "css": "col-md-12"
+                    }
+                ]
+            },
+            "video_youtube": "aMV6cXPMMSo",
+            "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyppVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMi1jMDAxIDYzLjEzOTQzOSwgMjAxMC8xMC8xMi0wODo0NTozMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIEVsZW1lbnRzIDExLjAgV2luZG93cyIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDoxQzI3N0IxQ0U3MzAxMUU1QTk3QUM1NjJBMEUwOEVGNyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDoxQzI3N0IxREU3MzAxMUU1QTk3QUM1NjJBMEUwOEVGNyI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjFDMjc3QjFBRTczMDExRTVBOTdBQzU2MkEwRTA4RUY3IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjFDMjc3QjFCRTczMDExRTVBOTdBQzU2MkEwRTA4RUY3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+tyxr4wAACsVJREFU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",
+            "module": "download_",
+            "module_name": "sftp_",
+            "visible": true,
+            "options": false,
+            "father": "module",
+            "group": "scripts",
+            "linux": true,
+            "windows":true,
+            "mac":true,
+            "docker":true
+        }
+    ]
+}
