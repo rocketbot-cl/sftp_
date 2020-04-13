@@ -2,7 +2,7 @@
     "author":"Marcela Vergara",
     "description": "Conecta y gestiona un SFTP",
     "disclaimer":"THERE IS NO WARRANTY FOR THE PROGRAM, TO THE EXTENT PERMITTED BY APPLICABLE LAW. EXCEPT WHEN OTHERWISE STATED IN WRITING THE COPYRIGHT HOLDERS AND/OR OTHER PARTIES PROVIDE THE PROGRAM “AS IS” WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS WITH YOU. SHOULD THE PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF ALL NECESSARY SERVICING, REPAIR OR CORRECTION.",
-    "version":"0.1",
+    "version":"0.2",
     "license": "MIT",
     "homepage":"http://rocketbot.co/",
     "linux": true,
@@ -52,6 +52,19 @@
                     {
                         "type": "input",
                         "placeholder": {
+                            "es": "22",
+                            "en": "22"
+                        },
+                        "title": {
+                            "es": "Puerto:",
+                            "en": "Port:"
+                        },
+                        "id": "port_",
+                        "css": "col-md-6"
+                    },
+                    {
+                        "type": "input",
+                        "placeholder": {
                             "es": "user@test.com",
                             "en": "user@test.com"
                         },
@@ -90,7 +103,7 @@
                             "en": "Variable name without {}"
                         },
                         "id": "var_",
-                        "css": "col-md-6"
+                        "css": "col-md-12"
                     }
                 ]
             },

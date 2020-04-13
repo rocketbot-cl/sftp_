@@ -48,13 +48,20 @@ if module == "conn_sftp":
     server_ = GetParams("server_")
     user_ = GetParams("user_")
     pass_ = GetParams("pass_")
+    port_ = GetParams("port_")
+    port_ = int(port_)
     var_ = GetParams("var_")
+
+    if not port_:
+        port_ = 22
+
+    print(port_)
 
     try:
 
         cnopts = pysftp.CnOpts()
         cnopts.hostkeys = None
-        with pysftp.Connection(host=server_, username=user_, password=pass_, cnopts=cnopts) as sftp:
+        with pysftp.Connection(host=server_, username=user_, password=pass_, port=port_, cnopts=cnopts) as sftp:
             print("Connection succesfully stablished ... ")
             res = True
 
