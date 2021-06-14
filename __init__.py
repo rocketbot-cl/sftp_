@@ -35,12 +35,8 @@ import pysftp
 """
     Obtengo el modulo que fue invocado
 """
-global sftp
-global server_
-global user_
-global pass_
-global cnopts
-global dir_
+global pwd_
+global pconn
 module = GetParams("module")
 
 if module == "conn_sftp":
@@ -49,32 +45,27 @@ if module == "conn_sftp":
     user_ = GetParams("user_")
     pass_ = GetParams("pass_")
     port_ = GetParams("port_")
-    port_ = int(port_)
-    var_ = GetParams("var_")
-
     if not port_:
         port_ = 22
-
-    print(port_)
+    else:
+        port_ = int(port_)
+    pem = GetParams("pem")
+    var_ = GetParams("var_")
 
     try:
-
-        cnopts = pysftp.CnOpts()
-        cnopts.hostkeys = None
-        with pysftp.Connection(host=server_, username=user_, password=pass_, port=port_, cnopts=cnopts) as sftp:
+        if pem:
+            pconn = pysftp.Connection(
+                host=server_,
+                username=user_,
+                private_key=pem,
+            )
             print("Connection succesfully stablished ... ")
-            res = True
-
-            # # Switch to a remote directory
-            # sftp.cwd('/')
-            #
-            # localFilePath = r'C:\Users\Marce\Desktop\Capacitaciones\test.xlsx'
-            #
-            # # Define the remote path where the file will be uploaded
-            # remoteFilePath = '/test.xlsx'
-            #
-            # sftp.put(localFilePath, remoteFilePath)
-
+        else:
+            cnopts = pysftp.CnOpts()
+            cnopts.hostkeys = None
+            pconn = pysftp.Connection(host=server_, username=user_, password=pass_, port=port_, cnopts=cnopts)
+            print("Connection succesfully stablished ... ")
+        res = True
     except:
         PrintException()
         res = False
@@ -87,14 +78,14 @@ if module == "go_dir":
         dir_ = GetParams("dir_")
         var_ = GetParams("var_")
 
-        with pysftp.Connection(host=server_, username=user_, password=pass_, cnopts=cnopts) as sftp:
-            go_ = sftp.cwd(dir_)
-            pwd_ = sftp.pwd
+        go_ = pconn.cwd(dir_)
+        pwd_ = pconn.pwd
 
         SetVar(var_,pwd_)
 
-    except:
+    except Exception as e:
         PrintException()
+        raise e
 
 if module == "upload_":
 
@@ -102,19 +93,21 @@ if module == "upload_":
     var_ = GetParams("var_")
 
     try:
-
-        with pysftp.Connection(host=server_, username=user_, password=pass_, cnopts=cnopts) as sftp:
-            filename = os.path.basename(file_)
-            print(file_)
-            sftp.put(file_, os.path.join(dir_,filename))
-            res = True
+        current = pconn.chdir('.')
+        current = pconn.getcwd()
+        filename = os.path.basename(file_)
+        if not dir_:
+            pconn.put(file_, os.path.join(current, filename))
+        else:
+            pconn.put(file_, os.path.join(pwd_,filename))
+        res = True
 
     except:
         PrintException()
         res = False
 
     SetVar(var_, res)
-#
+
 if module == "download_":
 
     file_ = GetParams("file_")
@@ -122,21 +115,15 @@ if module == "download_":
     var_ = GetParams("var_")
 
     try:
+        # Define the file that you want to download from the remote directory
+        remoteFilePath = os.path.join(pwd_,file_)
+        filename = os.path.basename(remoteFilePath)
 
-        with pysftp.Connection(host=server_, username=user_, password=pass_, cnopts=cnopts) as sftp:
-            # Define the file that you want to download from the remote directory
-            remoteFilePath = os.path.join(dir_,file_)
-            print(remoteFilePath)
-            filename = os.path.basename(remoteFilePath)
-
-            # Define the local path where the file will be saved
-            # or absolute "C:\Users\sdkca\Desktop\TUTORIAL.txt"
-            localFilePath = path_
-
-            sftp.get(remoteFilePath, os.path.join(localFilePath,filename))
-
-            res = True
-
+        # Define the local path where the file will be saved
+        # or absolute "C:\Users\sdkca\Desktop\TUTORIAL.txt"
+        localFilePath = path_
+        pconn.get(remoteFilePath, os.path.join(localFilePath,filename))
+        res = True
     except:
         PrintException()
         res = False
@@ -148,7 +135,8 @@ if module == "delete_file":
     var_ = GetParams("var_")
 
     try:
-        del_ = ftp.delete(file_)
+        delFilePath = os.path.join(pwd_, file_)
+        del_ = pconn.remove(delFilePath)
         res = True
 
     except:
