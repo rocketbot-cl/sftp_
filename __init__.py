@@ -89,6 +89,7 @@ if module == "go_dir":
 
 if module == "upload_":
 
+    dir_ = GetParams("dir_")
     file_ = GetParams("file_")
     var_ = GetParams("var_")
 
