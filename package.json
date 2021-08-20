@@ -109,7 +109,33 @@
                         "id": "pem",
                         "css": "col-md-6"
                     },
-
+                    {
+                        "type": "select",
+                        "title": {
+                          "es": "Selector de datos:",
+                          "en": "Input select:"
+                        },
+                        "options": [
+                          {
+                            "title": "--Seleccione--",
+                            "value": ""
+                          },
+                          {
+                            "title": "Windows",
+                            "value": "Windows"
+                          },
+                          {
+                            "title": "Linux/MacOs",
+                            "value": "UnixType"
+                          }
+                        ],
+                        "help": {
+                            "es": "Sistema operativo del servidor",
+                            "en":  "Server's OS"
+                        },
+                        "id": "serverOs",
+                        "css": "col-md-6"
+                    },
                     {
                         "type": "input",
                         "placeholder": {

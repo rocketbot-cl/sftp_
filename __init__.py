@@ -37,6 +37,10 @@ import pysftp
 """
 global pwd_
 global pconn
+
+separator = "/"
+global serverOs
+
 module = GetParams("module")
 
 if module == "conn_sftp":
@@ -45,6 +49,11 @@ if module == "conn_sftp":
     user_ = GetParams("user_")
     pass_ = GetParams("pass_")
     port_ = GetParams("port_")
+    serverOs = GetParams("serverOs")
+
+    if serverOs == "Windows":
+        separator = "\\"
+    
     if not port_:
         port_ = 22
     else:
@@ -89,16 +98,25 @@ if module == "go_dir":
 
 if module == "upload_":
 
-    dir_ = GetParams("dir_")
+    
+
     file_ = GetParams("file_")
     var_ = GetParams("var_")
+
+    dir_ = GetParams("dir_")
 
     try:
         current = pconn.chdir('.')
         current = pconn.getcwd()
         filename = os.path.basename(file_)
         if not dir_:
-            pconn.put(file_, os.path.join(current, filename))
+#            pconn.put(file_, os.path.join(current, filename))
+            finalPathServer = os.path.join(current, filename)
+            if serverOs == "Windows":
+                finalPathServer = finalPathServer.replace("/", "\\")
+            else:
+                finalPathServer = finalPathServer.replace("\\", "/")
+            pconn.put(file_, finalPathServer)
         else:
             pconn.put(file_, os.path.join(pwd_,filename))
         res = True
@@ -116,8 +134,18 @@ if module == "download_":
     var_ = GetParams("var_")
 
     try:
+        current = pconn.chdir('.')
+        current = pconn.getcwd()
+        pwd_ = ""
+        if pwd_ == "":
+            pwd_ = current
+        
         # Define the file that you want to download from the remote directory
         remoteFilePath = os.path.join(pwd_,file_)
+        if serverOs == "Windows":
+            remoteFilePath = remoteFilePath.replace("/". "\\"))
+        else:
+            remoteFilePath = remoteFilePath.replace("\\", "/")
         filename = os.path.basename(remoteFilePath)
 
         # Define the local path where the file will be saved
@@ -137,6 +165,10 @@ if module == "delete_file":
 
     try:
         delFilePath = os.path.join(pwd_, file_)
+        if serverOs == "Windows":
+            delFilePath = delFilePath.replace("/", "\\")
+        else:
+            delFilePath = delFilePath.replace("\\", "/")
         del_ = pconn.remove(delFilePath)
         res = True
 
