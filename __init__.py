@@ -143,7 +143,7 @@ if module == "download_":
         # Define the file that you want to download from the remote directory
         remoteFilePath = os.path.join(pwd_,file_)
         if serverOs == "Windows":
-            remoteFilePath = remoteFilePath.replace("/". "\\"))
+            remoteFilePath = remoteFilePath.replace("/", "\\")
         else:
             remoteFilePath = remoteFilePath.replace("\\", "/")
         filename = os.path.basename(remoteFilePath)
