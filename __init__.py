@@ -118,7 +118,12 @@ if module == "upload_":
                 finalPathServer = finalPathServer.replace("\\", "/")
             pconn.put(file_, finalPathServer)
         else:
-            pconn.put(file_, os.path.join(pwd_,filename))
+            finalPathServer = os.path.join(dir_, filename)
+            if serverOs == "Windows":
+                finalPathServer = finalPathServer.replace("/", "\\")
+            else:
+                finalPathServer = finalPathServer.replace("\\", "/")
+            pconn.put(file_, finalPathServer)
         res = True
 
     except:
@@ -151,10 +156,22 @@ if module == "download_":
         # Define the local path where the file will be saved
         # or absolute "C:\Users\sdkca\Desktop\TUTORIAL.txt"
         localFilePath = path_
-        pconn.get(remoteFilePath, os.path.join(localFilePath,filename))
+
+
+        localFilePath = os.path.join(localFilePath, filename)
+        if os.path == "/":
+            localFilePath = localFilePath.replace("/", "\\")
+        else:
+            localFilePath = localFilePath.replace("\\", "/")
+
+        pconn.get(remoteFilePath, localFilePath)
         res = True
     except:
         PrintException()
+        try:
+            os.remove(localFilePath)
+        except:
+            pass
         res = False
 
     SetVar(var_, res)
