@@ -1,23 +1,53 @@
-# sftp_
-Connect and manage an SFTP
+# SFTP
+  
+Connect and manage an SFTP  
 
-![alt text](https://raw.githubusercontent.com/rocketbot-cl/sftp_/master/example/sftp.png)
+*Read this in other languages: [English](README.md), [Portugues](README.pr.md), [Español](README.es.md).*
 
-<h2>Dependencies</h2>
+## How to install this module
+  
+__Download__ and __install__ the content in 'modules' folder in Rocketbot path  
 
-<ul>
-  <li>
-    <strong>
-      <a href="https://pypi.org/project/pysftp/">pysftp</a>
-    </strong> 
-  </li>  
-</ul>  
 
-<h2>License</h2>
 
-<p><a href="http://badges.mit-license.org" rel="nofollow"><img src="https://camo.githubusercontent.com/107590fac8cbd65071396bb4d04040f76cde5bde/687474703a2f2f696d672e736869656c64732e696f2f3a6c6963656e73652d6d69742d626c75652e7376673f7374796c653d666c61742d737175617265" alt="License" data-canonical-src="http://img.shields.io/:license-mit-blue.svg?style=flat-square" style="max-width:100%;"></a></p>
+## Overview
 
-<ul>
-  <li><strong><a href="http://opensource.org/licenses/mit-license.php" rel="nofollow">MIT license</a></strong></li>
-</ul>  
 
+1. Connect to SFTP  
+Connect to SFTP
+
+2. Go to directory  
+Go to directory indicated by name or absolute path
+
+3. Upload file  
+Upload file to current directory
+
+4. Rename file  
+Rename a file from the absolute path indicated. If another absolute path is placed, the command will move the file.
+
+5. Download file  
+Download file from the current directory or from the specified absolute path
+
+6. Delete file  
+Delete file from the current directory or from the specified absolute path
+
+7. List files in directory  
+Lists files inside a folder  
+
+
+
+
+----
+### OS
+
+- windows
+- mac
+- linux
+- docker
+
+### Dependencies
+- [**pysftp**](https://pypi.org/project/pysftp/)
+### License
+  
+![MIT](https://camo.githubusercontent.com/107590fac8cbd65071396bb4d04040f76cde5bde/687474703a2f2f696d672e736869656c64732e696f2f3a6c6963656e73652d6d69742d626c75652e7376673f7374796c653d666c61742d737175617265)  
+[MIT](http://opensource.org/licenses/mit-license.ph)

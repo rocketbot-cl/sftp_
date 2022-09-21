@@ -194,3 +194,40 @@ if module == "delete_file":
         res = False
 
     SetVar(var_, res)
+
+if module == "list_files":
+
+    try:
+        dir_ = GetParams("dir_")
+        var_ = GetParams("var_")
+
+        listedFiles = pconn.listdir(dir_)
+
+        SetVar(var_, listedFiles)
+
+    except Exception as e:
+        PrintException()
+        raise e
+    
+if module == "rename_file":
+
+    try:
+        file_ = GetParams("file_")
+        new_name = GetParams("new_name")
+        var_ = GetParams("var_")
+
+        renameFilePath = os.path.join(file_)
+
+        if serverOs == "Windows":
+            renameFilePath = renameFilePath.replace("/", "\\")
+        else:
+            renameFilePath = renameFilePath.replace("\\", "/")
+        pconn.rename(renameFilePath, new_name)
+
+        res = True
+
+    except:
+        PrintException()
+        res = False
+
+    SetVar(var_, res)
