@@ -23,7 +23,7 @@ Go to directory indicated by name or absolute path
 Upload file to current directory
 
 4. Rename file  
-Rename a file from the absolute path indicated. If another absolute path is placed, the command will move the file.
+Rename a file that is in the current directory
 
 5. Download file  
 Download file from the current directory or from the specified absolute path

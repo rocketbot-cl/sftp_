@@ -45,11 +45,11 @@ Sube el archivo al directorio actual
 
 ### Renombrar archivo
   
-Renombrar un archivo desde la ruta absoluta indicada. Si se coloca otra ruta absoluta, el comando moverá el archivo.
+Renombra un archivo que se encuentra en el directorio actual
 |Parámetros|Descripción|ejemplo|
 | --- | --- | --- |
-|Archivo a renombrar|Ruta absoluta del archivo a renombrar|/home/test/test.txt|
-|Nuevo nombre y ubicación|Ruta absoluta del archivo|/home/carpeta/test2.txt|
+|Archivo a renombrar|Nombre del archivo que será renombrado. Debe estar en el directorio actual|test.txt|
+|Nuevo nombre|Nuevo nombre del archivo|test2.txt|
 |Asignar resultado en variable|Variable donde se almacenará el resultado|Variable|
 
 ### Descargar archivo

@@ -45,11 +45,11 @@ Upload file to current directory
 
 ### Rename file
   
-Rename a file from the absolute path indicated. If another absolute path is placed, the command will move the file.
+Rename a file that is in the current directory
 |Parameters|Description|example|
 | --- | --- | --- |
-|File to rename|Absolute path of the file to rename|/home/test/test.txt|
-|New name and location|Absolute path of the file|/home/folder/test2.txt|
+|File to rename|Name of the file that will be renamed. It must be in the current directory|test.txt|
+|New name|New file name|test2.txt|
 |Assign result to variable|Variable where the result will be stored|Variable|
 
 ### Download file

@@ -45,11 +45,11 @@ Carrega o arquivo para o diretório atual
 
 ### Renomear arquivo
   
-Renomeie um arquivo do caminho absoluto indicado. Se outro caminho absoluto for colocado, o comando moverá o arquivo.
+Renomeia um arquivo que está no diretório atual
 |Parâmetros|Descrição|exemplo|
 | --- | --- | --- |
-|Arquivo para renomear|Caminho absoluto do arquivo para renomear|/home/test/test.txt|
-|Novo nome e localização|Caminho absoluto do arquivo|/home/pasta/test2.txt|
+|Arquivo para renomear|Nome do arquivo que será renomeado. Deve estar no diretório atual|test.txt|
+|Novo nome|Novo nome do arquivo|test2.txt|
 |Atribuir resultado à variável|Variável onde o resultado será armazenado|Variável|
 
 ### Baixar arquivo
