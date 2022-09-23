@@ -23,7 +23,7 @@ Se mueve al directorio indicado por el nombre o ruta absoluta
 Sube el archivo al directorio actual
 
 4. Renombrar archivo  
-Renombrar un archivo del directorio actual o desde la ruta absoluta indicada. Si se coloca otra ruta absoluta, el comando moverá el archivo.
+Renombra un archivo que se encuentra en el directorio actual
 
 1. Descargar archivo  
 Descarga archivo del directorio actual o desde la ruta absoluta indicada

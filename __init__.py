@@ -216,17 +216,21 @@ if module == "rename_file":
         new_name = GetParams("new_name")
         var_ = GetParams("var_")
 
-        renameFilePath = os.path.join(file_)
-
+        oldPath = os.path.join(pwd_, file_)
+        
         if serverOs == "Windows":
-            renameFilePath = renameFilePath.replace("/", "\\")
+            oldPath = oldPath.replace("/", "\\")
         else:
-            renameFilePath = renameFilePath.replace("\\", "/")
-        pconn.rename(renameFilePath, new_name)
-
+            oldPath = oldPath.replace("\\", "/")
+        newPath = os.path.join(pwd_, new_name)
+        if serverOs == "Windows":
+            newPath = newPath.replace("/", "\\")
+        else:
+            newPath = newPath.replace("\\", "/")
+        pconn.rename(oldPath, newPath)
         res = True
 
-    except:
+    except Exception as e:
         PrintException()
         res = False
 

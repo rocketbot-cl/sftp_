@@ -2,7 +2,7 @@
     "author":"Marcela Vergara",
     "description": "Conecta y gestiona un SFTP",
     "disclaimer":"THERE IS NO WARRANTY FOR THE PROGRAM, TO THE EXTENT PERMITTED BY APPLICABLE LAW. EXCEPT WHEN OTHERWISE STATED IN WRITING THE COPYRIGHT HOLDERS AND/OR OTHER PARTIES PROVIDE THE PROGRAM “AS IS” WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS WITH YOU. SHOULD THE PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF ALL NECESSARY SERVICING, REPAIR OR CORRECTION.",
-    "version":"1.3.0",
+    "version":"1.3.1",
     "license": "MIT",
     "homepage":"http://rocketbot.co/",
     "linux": true,
@@ -405,19 +405,19 @@
         {
             "es": {
                 "title": "Renombrar archivo",
-                "description": "Renombrar un archivo desde la ruta absoluta indicada. Si se coloca otra ruta absoluta, el comando moverá el archivo.",
+                "description": "Renombra un archivo que se encuentra en el directorio actual",
                 "title_options": "Seleccione una opción",
                 "options": null
             },
             "en": {
                 "title": "Rename file",
-                "description": "Rename a file from the absolute path indicated. If another absolute path is placed, the command will move the file.",
+                "description": "Rename a file that is in the current directory",
                 "title_options": "Select Option",
                 "options":null
             },
             "pr": {
                 "title": "Renomear arquivo",
-                "description": "Renomeie um arquivo do caminho absoluto indicado. Se outro caminho absoluto for colocado, o comando moverá o arquivo.",
+                "description": "Renomeia um arquivo que está no diretório atual",
                 "title_options": "Selecione uma opção",
                 "options":null
             },
@@ -427,9 +427,9 @@
                     {
                         "type": "input",
                         "placeholder": {
-                            "es": "/home/test/test.txt",
-                            "en": "/home/test/test.txt",
-                            "pr": "/home/test/test.txt"
+                            "es": "test.txt",
+                            "en": "test.txt",
+                            "pr": "test.txt"
                         },
                         "title": {
                             "es": "Archivo a renombrar",
@@ -437,14 +437,14 @@
                             "pr": "Arquivo para renomear"
                         },
                         "description": {
-                            "es": "Ruta absoluta del archivo a renombrar",
-                            "en": "Absolute path of the file to rename",
-                            "pr": "Caminho absoluto do arquivo para renomear"
+                            "es": "Nombre del archivo que será renombrado. Debe estar en el directorio actual",
+                            "en": "Name of the file that will be renamed. It must be in the current directory",
+                            "pr": "Nome do arquivo que será renomeado. Deve estar no diretório atual"
                         },
                         "help": {
-                            "es": "Ruta completa del archivo a renombrar",
-                            "en": "Full path of the file to rename",
-                            "pr": "Caminho completo do arquivo para renomear"
+                            "es": "El archivo debe encontrarse en el directorio actual",
+                            "en": "The file must be in the current directory",
+                            "pr": "O arquivo deve estar no diretório atual"
                         },
                         "id": "file_",
                         "css": "col-md-12"
@@ -452,19 +452,19 @@
                     {
                         "type": "input",
                         "placeholder": {
-                            "es": "/home/carpeta/test2.txt",
-                            "en": "/home/folder/test2.txt",
-                            "pr": "/home/pasta/test2.txt"
+                            "es": "test2.txt",
+                            "en": "test2.txt",
+                            "pr": "test2.txt"
                         },
                         "title": {
-                            "es": "Nuevo nombre y ubicación",
-                            "en": "New name and location",
-                            "pr": "Novo nome e localização"
+                            "es": "Nuevo nombre",
+                            "en": "New name",
+                            "pr": "Novo nome"
                         },
                         "description": {
-                            "es": "Ruta absoluta del archivo",
-                            "en": "Absolute path of the file",
-                            "pr": "Caminho absoluto do arquivo"
+                            "es": "Nuevo nombre del archivo",
+                            "en": "New file name",
+                            "pr": "Novo nome do arquivo"
                         },
                         "id": "new_name",
                         "css": "col-md-6"

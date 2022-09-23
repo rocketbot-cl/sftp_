@@ -23,7 +23,7 @@ Mova-se para o diretório indicado pelo nome ou caminho absoluto
 Carrega o arquivo para o diretório atual
 
 4. Renomear arquivo  
-Renomeie um arquivo do caminho absoluto indicado. Se outro caminho absoluto for colocado, o comando moverá o arquivo.
+Renomeia um arquivo que está no diretório atual
 
 5. Baixar arquivo  
 Baixe o arquivo do diretório atual ou do caminho absoluto especificado
