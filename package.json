@@ -2,7 +2,7 @@
     "author":"Marcela Vergara",
     "description": "Conecta y gestiona un SFTP",
     "disclaimer":"THERE IS NO WARRANTY FOR THE PROGRAM, TO THE EXTENT PERMITTED BY APPLICABLE LAW. EXCEPT WHEN OTHERWISE STATED IN WRITING THE COPYRIGHT HOLDERS AND/OR OTHER PARTIES PROVIDE THE PROGRAM “AS IS” WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS WITH YOU. SHOULD THE PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF ALL NECESSARY SERVICING, REPAIR OR CORRECTION.",
-    "version":"1.2",
+    "version":"1.3.1",
     "license": "MIT",
     "homepage":"http://rocketbot.co/",
     "linux": true,
@@ -15,7 +15,8 @@
     },
     "title": {
         "en": "SFTP",
-        "es": "SFTP"
+        "es": "SFTP",
+        "pr": "SFTP"
     },
     "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyppVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMi1jMDAxIDYzLjEzOTQzOSwgMjAxMC8xMC8xMi0wODo0NTozMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIEVsZW1lbnRzIDExLjAgV2luZG93cyIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDoxQzI3N0IxQ0U3MzAxMUU1QTk3QUM1NjJBMEUwOEVGNyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDoxQzI3N0IxREU3MzAxMUU1QTk3QUM1NjJBMEUwOEVGNyI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjFDMjc3QjFBRTczMDExRTVBOTdBQzU2MkEwRTA4RUY3IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjFDMjc3QjFCRTczMDExRTVBOTdBQzU2MkEwRTA4RUY3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+tyxr4wAACsVJREFU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",
     "children": [
@@ -33,6 +34,12 @@
                 "title_options": "Seleccione una opción",
                 "options": null
             },
+            "pr": {
+                "title": "Conectar com SFTP",
+                "description": "Conectar com SFTP",
+                "title_options": "Selecione uma opção",
+                "options": null
+            },
             "form": {
                 "css": "modal-lg",
                 "inputs": [
@@ -40,11 +47,18 @@
                         "type": "input",
                         "placeholder": {
                             "es": "test.sftp.com",
-                            "en": "test.sftp.com"
+                            "en": "test.sftp.com",
+                            "pr": "test.sftp.com"
                         },
                         "title": {
                             "es": "Servidor:",
-                            "en": "Server:"
+                            "en": "Server:",
+                            "pr": "Servidor:"
+                        },
+                        "description": {
+                            "es": "Dirección del servidor",
+                            "en": "Server address",
+                            "pr": "Endereço do servidor"
                         },
                         "id": "server_",
                         "css": "col-md-6"
@@ -53,15 +67,23 @@
                         "type": "input",
                         "placeholder": {
                             "es": "22",
-                            "en": "22"
+                            "en": "22",
+                            "pr": "22"
                         },
                         "title": {
                             "es": "Puerto:",
-                            "en": "Port:"
+                            "en": "Port:",
+                            "pr": "Porta:"
+                        },
+                        "description": {
+                            "es": "Puerto del servidor",
+                            "en": "Server port",
+                            "pr": "Porta do servidor"
                         },
                         "help": {
                             "es": "si se deja vacío, por defecto será 22",
-                            "en": "If left empty, it will be 22 by default"
+                            "en": "If left empty, it will be 22 by default",
+                            "pr": "Se deixar em branco, será 22 por padrão"
                         },
                         "id": "port_",
                         "css": "col-md-6"
@@ -70,11 +92,18 @@
                         "type": "input",
                         "placeholder": {
                             "es": "user@test.com",
-                            "en": "user@test.com"
+                            "en": "user@test.com",
+                            "pr": "user@test.com"
                         },
                         "title": {
                             "es": "Usuario:",
-                            "en": "User:"
+                            "en": "User:",
+                            "pr": "Usuário:"
+                        },
+                        "description": {
+                            "es": "Usuario de sftp",
+                            "en": "Sftp user",
+                            "pr": "Usuário de sftp"
                         },
                         "id": "user_",
                         "css": "col-md-6"
@@ -83,11 +112,18 @@
                         "type": "input",
                         "placeholder": {
                             "es": "******",
-                            "en": "******"
+                            "en": "******",
+                            "pr": "******"
                         },
                         "title": {
                             "es": "Contraseña:",
-                            "en": "Password:"
+                            "en": "Password:",
+                            "pr": "Senha:"
+                        },
+                        "description": {
+                            "es": "Contraseña de sftp",
+                            "en": "Sftp password",
+                            "pr": "Senha de sftp"
                         },
                         "id": "pass_",
                         "css": "col-md-6"
@@ -96,15 +132,23 @@
                         "type": "file_select",
                         "placeholder": {
                             "es": "C:/Users/Usuario/archivo.pem",
-                            "en": ".C:/Users/User/file.pem"
+                            "en": ".C:/Users/User/file.pem",
+                            "pr": "C:/Users/Usuário/arquivo.pem"
                         },
                         "title": {
                             "es": "Ruta al Archivo .pem:",
-                            "en": ".pem File Parh:"
+                            "en": ".pem File Parh:",
+                            "pr": "Caminho do arquivo .pem:"
+                        },
+                        "description": {
+                            "es": "Ruta al archivo .pem para conexión con SFTP",
+                            "en": ".pem file path for SFTP connection",
+                            "pr": "Caminho do arquivo .pem para conexão com SFTP"
                         },
                         "help": {
                             "es": "Si utiliza pem no es necesaria la contraseña",
-                            "en": "If you use pem, no password is required"
+                            "en": "If you use pem, no password is required",
+                            "pr": "Se você usar pem, não é necessário senha"
                         },
                         "id": "pem",
                         "css": "col-md-6"
@@ -112,8 +156,9 @@
                     {
                         "type": "select",
                         "title": {
-                          "es": "Sistema operativo del servidor:",
-                          "en": "Server's operative system:"
+                            "es": "Sistema operativo del servidor:",
+                            "en": "Server's operative system:",
+                            "pr": "Sistema operacional do servidor:"
                         },
                         "options": [
                           {
@@ -125,9 +170,10 @@
                             "value": "UnixType"
                           }
                         ],
-                        "help": {
-                            "es": "Sistema operativo del servidor",
-                            "en":  "Server's OS"
+                        "description": {
+                            "es": "Sistema operativo del servidor SFTP",
+                            "en": "Server's SFTP operative system",
+                            "pr": "Sistema operacional do servidor SFTP"
                         },
                         "id": "serverOs",
                         "css": "col-md-6"
@@ -136,15 +182,23 @@
                         "type": "input",
                         "placeholder": {
                             "es": "Variable",
-                            "en": "Variable"
+                            "en": "Variable",
+                            "pr": "Variável"
                         },
                         "title": {
                             "es": "Asignar resultado a variable:",
-                            "en": "Assign result to variable:"
+                            "en": "Assign result to variable:",
+                            "pr": "Atribuir resultado a variável:"
+                        },
+                        "description": {
+                            "es": "Variable donde se almacenará el resultado de la conexión",
+                            "en": "Variable where the result of the connection will be stored",
+                            "pr": "Variável onde o resultado da conexão será armazenado"
                         },
                         "help": {
                             "es": "Nombre de variable sin {}",
-                            "en": "Variable name without {}"
+                            "en": "Variable name without {}",
+                            "pr": "Nome da variável sem {}"
                         },
                         "id": "var_",
                         "css": "col-md-6"
@@ -177,6 +231,12 @@
                 "title_options": "Seleccione una opción",
                 "options": null
             },
+            "pr": {
+                "title": "Ir para o diretório",
+                "description": "Mova-se para o diretório indicado pelo nome ou caminho absoluto",
+                "title_options": "Selecione uma opção",
+                "options": null
+            },
             "form": {
                 "css": "modal-lg",
                 "inputs": [
@@ -184,11 +244,18 @@
                         "type": "input",
                         "placeholder": {
                             "es": "test",
-                            "en": "test"
+                            "en": "test",
+                            "pr": "test"
                         },
                         "title": {
                             "es": "Nombre de directorio:",
-                            "en": "Directory name:"
+                            "en": "Directory name:",
+                            "pr": "Nome do diretório:"
+                        },
+                        "description": {
+                            "es": "Nombre de directorio o ruta absoluta",
+                            "en": "Directory name or absolute path",
+                            "pr": "Nome do diretório ou caminho absoluto"
                         },
                         "id": "dir_",
                         "css": "col-md-6"
@@ -197,15 +264,23 @@
                         "type": "input",
                         "placeholder": {
                             "es": "Variable",
-                            "en": "Variable"
+                            "en": "Variable",
+                            "pr": "Variável"
                         },
                         "title": {
                             "es": "Guardar directorio actual en variable:",
-                            "en": "Save current directory in variable:"
+                            "en": "Save current directory in variable:",
+                            "pr": "Salvar diretório atual na variável:"
+                        },
+                        "description": {
+                            "es": "Nombre de variable donde se guardará el directorio actual",
+                            "en": "Variable name where the current directory will be saved",
+                            "pr": "Nome da variável onde o diretório atual será salvo"
                         },
                         "help": {
                             "es": "Nombre de variable sin {}",
-                            "en": "Variable name without {}"
+                            "en": "Variable name without {}",
+                            "pr": "Nome da variável sem {}"
                         },
                         "id": "var_",
                         "css": "col-md-6"
@@ -238,6 +313,12 @@
                 "title_options": "Seleccione una opción",
                 "options": null
             },
+            "pr": {
+                "title": "Carregar arquivo",
+                "description": "Carrega o arquivo para o diretório atual",
+                "title_options": "Seleccione una opción",
+                "options": null
+            },
             "form": {
                 "css": "modal-lg",
                 "inputs": [
@@ -245,11 +326,18 @@
                         "type": "file_select",
                         "placeholder": {
                             "es": "C:/Users/Usuario/Desktop/test.png",
-                            "en": "C:/Users/User/Desktop/test.png"
+                            "en": "C:/Users/User/Desktop/test.png",
+                            "pr": "C:/Users/Usuário/Desktop/test.png"
                         },
                         "title": {
                             "es": "Archivo a subir:",
-                            "en": "File to upload:"
+                            "en": "File to upload:",
+                            "pr": "Arquivo para carregar:"
+                        },
+                        "description": {
+                            "es": "Seleccione el archivo a subir",
+                            "en": "Select the file to upload",
+                            "pr": "Selecione o arquivo para carregar"
                         },
                         "id": "file_",
                         "css": "col-md-12"
@@ -258,11 +346,18 @@
                         "type": "input",
                         "placeholder": {
                             "es": "/home/ftp/uploads",
-                            "en": "/home/ftp/uploads"
+                            "en": "/home/ftp/uploads",
+                            "pr": "/home/ftp/uploads"
                         },
                         "title": {
                             "es": "Nombre de directorio:",
-                            "en": "Directory name:"
+                            "en": "Directory name:",
+                            "pr": "Nome do diretório:"
+                        },
+                        "description": {
+                            "es": "Nombre del directorio donde se subirá el archivo",
+                            "en": "Directory name where the file will be uploaded",
+                            "pr": "Nome do diretório onde o arquivo será carregado"
                         },
                         "id": "dir_",
                         "css": "col-md-6"
@@ -271,15 +366,23 @@
                         "type": "input",
                         "placeholder": {
                             "es": "Variable",
-                            "en": "Variable"
+                            "en": "Variable",
+                            "pr": "Variável"
                         },
                         "title": {
                             "es": "Asignar resultado en variable:",
-                            "en": "Assign result to variable:"
+                            "en": "Assign result to variable:",
+                            "pr": "Atribuir resultado a variável:"
+                        },
+                        "description": {
+                            "es": "Asigna el resultado de la operación a una variable",
+                            "en": "Assign the result of the operation to a variable",
+                            "pr": "Atribui o resultado da operação a uma variável"
                         },
                         "help": {
                             "es": "Nombre de variable sin {}",
-                            "en": "Variable name without {}"
+                            "en": "Variable name without {}",
+                            "pr": "Nome da variável sem {}"
                         },
                         "id": "var_",
                         "css": "col-md-6"
@@ -289,6 +392,113 @@
             "video_youtube": "",
             "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyppVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMi1jMDAxIDYzLjEzOTQzOSwgMjAxMC8xMC8xMi0wODo0NTozMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIEVsZW1lbnRzIDExLjAgV2luZG93cyIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDoxQzI3N0IxQ0U3MzAxMUU1QTk3QUM1NjJBMEUwOEVGNyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDoxQzI3N0IxREU3MzAxMUU1QTk3QUM1NjJBMEUwOEVGNyI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjFDMjc3QjFBRTczMDExRTVBOTdBQzU2MkEwRTA4RUY3IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjFDMjc3QjFCRTczMDExRTVBOTdBQzU2MkEwRTA4RUY3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+tyxr4wAACsVJREFU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",
             "module": "upload_",
+            "module_name": "sftp_",
+            "visible": true,
+            "options": false,
+            "father": "module",
+            "group": "scripts",
+            "linux": true,
+            "windows":true,
+            "mac":true,
+            "docker":true
+        },
+        {
+            "es": {
+                "title": "Renombrar archivo",
+                "description": "Renombra un archivo que se encuentra en el directorio actual",
+                "title_options": "Seleccione una opción",
+                "options": null
+            },
+            "en": {
+                "title": "Rename file",
+                "description": "Rename a file that is in the current directory",
+                "title_options": "Select Option",
+                "options":null
+            },
+            "pr": {
+                "title": "Renomear arquivo",
+                "description": "Renomeia um arquivo que está no diretório atual",
+                "title_options": "Selecione uma opção",
+                "options":null
+            },
+            "form": {
+                "css": "modal-lg",
+                "inputs": [
+                    {
+                        "type": "input",
+                        "placeholder": {
+                            "es": "test.txt",
+                            "en": "test.txt",
+                            "pr": "test.txt"
+                        },
+                        "title": {
+                            "es": "Archivo a renombrar",
+                            "en": "File to rename",
+                            "pr": "Arquivo para renomear"
+                        },
+                        "description": {
+                            "es": "Nombre del archivo que será renombrado. Debe estar en el directorio actual",
+                            "en": "Name of the file that will be renamed. It must be in the current directory",
+                            "pr": "Nome do arquivo que será renomeado. Deve estar no diretório atual"
+                        },
+                        "help": {
+                            "es": "El archivo debe encontrarse en el directorio actual",
+                            "en": "The file must be in the current directory",
+                            "pr": "O arquivo deve estar no diretório atual"
+                        },
+                        "id": "file_",
+                        "css": "col-md-12"
+                    },
+                    {
+                        "type": "input",
+                        "placeholder": {
+                            "es": "test2.txt",
+                            "en": "test2.txt",
+                            "pr": "test2.txt"
+                        },
+                        "title": {
+                            "es": "Nuevo nombre",
+                            "en": "New name",
+                            "pr": "Novo nome"
+                        },
+                        "description": {
+                            "es": "Nuevo nombre del archivo",
+                            "en": "New file name",
+                            "pr": "Novo nome do arquivo"
+                        },
+                        "id": "new_name",
+                        "css": "col-md-6"
+                    },
+                    {
+                        "type": "input",
+                        "placeholder": {
+                            "es": "Variable",
+                            "en": "Variable",
+                            "pr": "Variável"
+                        },
+                        "title": {
+                            "es": "Asignar resultado en variable:",
+                            "en": "Assign result to variable:",
+                            "pr": "Atribuir resultado à variável:"
+                        },
+                        "description": {
+                            "es": "Variable donde se almacenará el resultado",
+                            "en": "Variable where the result will be stored",
+                            "pr": "Variável onde o resultado será armazenado"
+                        },
+                        "help": {
+                            "es": "Nombre de variable sin {}",
+                            "en": "Variable name without {}",
+                            "pr": "Nome da variável sem {}"
+                        },
+                        "id": "var_",
+                        "css": "col-md-6"
+                    }
+                ]
+            },
+            "video_youtube": "",
+            "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyppVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMi1jMDAxIDYzLjEzOTQzOSwgMjAxMC8xMC8xMi0wODo0NTozMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIEVsZW1lbnRzIDExLjAgV2luZG93cyIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDoxQzI3N0IxQ0U3MzAxMUU1QTk3QUM1NjJBMEUwOEVGNyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDoxQzI3N0IxREU3MzAxMUU1QTk3QUM1NjJBMEUwOEVGNyI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjFDMjc3QjFBRTczMDExRTVBOTdBQzU2MkEwRTA4RUY3IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjFDMjc3QjFCRTczMDExRTVBOTdBQzU2MkEwRTA4RUY3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+tyxr4wAACsVJREFU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",
+            "module": "rename_file",
             "module_name": "sftp_",
             "visible": true,
             "options": false,
@@ -312,6 +522,12 @@
                 "title_options": "Seleccione una opción",
                 "options": null
             },
+            "pr": {
+                "title": "Baixar arquivo",
+                "description": "Baixe o arquivo do diretório atual ou do caminho absoluto especificado",
+                "title_options": "Selecione uma opção",
+                "options": null
+            },
             "form": {
                 "css": "modal-lg",
                 "inputs": [
@@ -319,11 +535,18 @@
                         "type": "input",
                         "placeholder": {
                             "es": "test.png",
-                            "en": "test.png"
+                            "en": "test.png",
+                            "pr": "test.png"
                         },
                         "title": {
                             "es": "Nombre de archivo a descargar:",
-                            "en": "File name to download:"
+                            "en": "File name to download:",
+                            "pr": "Nome do arquivo para baixar:"
+                        },
+                        "description": {
+                            "es": "Nombre del archivo a descargar",
+                            "en": "File name to download",
+                            "pr": "Nome do arquivo para baixar"
                         },
                         "id": "file_",
                         "css": "col-md-12"
@@ -332,11 +555,18 @@
                         "type": "folder_select",
                         "placeholder": {
                             "es": "C:/Users/Usuario/Desktop",
-                            "en": "C:/Users/User/Desktop"
+                            "en": "C:/Users/User/Desktop",
+                            "pr": "C:/Users/Usuário/Desktop"
                         },
                         "title": {
                             "es": "Ruta donde descargar:",
-                            "en": "Path to download:"
+                            "en": "Path to download:",
+                            "pr": "Caminho para baixar:"
+                        },
+                        "description": {
+                            "es": "Ruta donde se descargará el archivo",
+                            "en": "Path where the file will be downloaded",
+                            "pr": "Caminho onde o arquivo será baixado"
                         },
                         "id": "path_",
                         "css": "col-md-12"
@@ -345,15 +575,23 @@
                         "type": "input",
                         "placeholder": {
                             "es": "Variable",
-                            "en": "Variable"
+                            "en": "Variable",
+                            "pr": "Variável"
                         },
                         "title": {
                             "es": "Asignar resultado en variable:",
-                            "en": "Assign result to variable:"
+                            "en": "Assign result to variable:",
+                            "pr": "Atribuir resultado à variável:"
+                        },
+                        "description": {
+                            "es": "Asigna el resultado de la ejecución del script a la variable indicada",
+                            "en": "Assigns the result of the script execution to the indicated variable",
+                            "pr": "Atribui o resultado da execução do script à variável indicada"
                         },
                         "help": {
                             "es": "Nombre de variable sin {}",
-                            "en": "Variable name without {}"
+                            "en": "Variable name without {}",
+                            "pr": "Nome da variável sem {}"
                         },
                         "id": "var_",
                         "css": "col-md-12"
@@ -386,6 +624,12 @@
                 "title_options": "Seleccione una opción",
                 "options": null
             },
+            "pr": {
+                "title": "Eliminar archivo",
+                "description": "Elimina um arquivo do diretório atual ou do caminho absoluto dado",
+                "title_options": "Selecione uma opção",
+                "options": null
+            },
             "form": {
                 "css": "modal-lg",
                 "inputs": [
@@ -393,11 +637,18 @@
                         "type": "input",
                         "placeholder": {
                             "es": "test.png",
-                            "en": "test.png"
+                            "en": "test.png",
+                            "pr": "test.png"
                         },
                         "title": {
                             "es": "Nombre de archivo a eliminar:",
-                            "en": "File name to delete:"
+                            "en": "File name to delete:",
+                            "pr": "Nome do arquivo a ser excluído:"
+                        },
+                        "description": {
+                            "es": "Nombre del archivo a eliminar",
+                            "en": "File name to delete",
+                            "pr": "Nome do arquivo a ser excluído"
                         },
                         "id": "file_",
                         "css": "col-md-12"
@@ -406,15 +657,23 @@
                         "type": "input",
                         "placeholder": {
                             "es": "Variable",
-                            "en": "Variable"
+                            "en": "Variable",
+                            "pr": "Variável"
                         },
                         "title": {
                             "es": "Asignar resultado en variable:",
-                            "en": "Assign result to variable:"
+                            "en": "Assign result to variable:",
+                            "pr": "Atribuir resultado à variável:"
+                        },
+                        "description": {
+                            "es": "Asigna el resultado de la ejecución del script a la variable indicada",
+                            "en": "Assigns the result of the script execution to the indicated variable",
+                            "pr": "Atribui o resultado da execução do script à variável indicada"
                         },
                         "help": {
                             "es": "Nombre de variable sin {}",
-                            "en": "Variable name without {}"
+                            "en": "Variable name without {}",
+                            "pr": "Nome da variável sem {}"
                         },
                         "id": "var_",
                         "css": "col-md-12"
@@ -424,6 +683,89 @@
             "video_youtube": "",
             "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyppVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMi1jMDAxIDYzLjEzOTQzOSwgMjAxMC8xMC8xMi0wODo0NTozMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIEVsZW1lbnRzIDExLjAgV2luZG93cyIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDoxQzI3N0IxQ0U3MzAxMUU1QTk3QUM1NjJBMEUwOEVGNyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDoxQzI3N0IxREU3MzAxMUU1QTk3QUM1NjJBMEUwOEVGNyI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjFDMjc3QjFBRTczMDExRTVBOTdBQzU2MkEwRTA4RUY3IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjFDMjc3QjFCRTczMDExRTVBOTdBQzU2MkEwRTA4RUY3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+tyxr4wAACsVJREFU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",
             "module": "delete_file",
+            "module_name": "sftp_",
+            "visible": true,
+            "options": false,
+            "father": "module",
+            "group": "scripts",
+            "linux": true,
+            "windows":true,
+            "mac":true,
+            "docker":true
+        },
+        {
+            "en": {
+                "title": "List files in directory",
+                "description": "Lists files inside a folder",
+                "title_options": "Select Option",
+                "options":null
+            },
+            "es": {
+                "title": "Listar archivos en directorio",
+                "description": "Lista los archivos contenidos en una carpeta",
+                "title_options": "Seleccione una opción",
+                "options": null
+            },
+            "pr": {
+                "title": "Listar arquivos em diretório",
+                "description": "Lista os arquivos contidos em uma pasta",
+                "title_options": "Selecione uma opção",
+                "options": null
+            },
+            "form": {
+                "css": "modal-lg",
+                "inputs": [
+                    {
+                        "type": "input",
+                        "placeholder": {
+                            "es": "/home/test",
+                            "en": "/home/test",
+                            "pr": "/home/test"
+                        },
+                        "title": {
+                            "es": "Nombre del directorio:",
+                            "en": "Directory name:",
+                            "pr": "Nome do diretório:"
+                        },
+                        "description": {
+                            "es": "Nombre del directorio del cual se listarán los archivos",
+                            "en": "Directory name from which the files will be listed",
+                            "pr": "Nome do diretório do qual os arquivos serão listados"
+                        },
+                        "id": "dir_",
+                        "css": "col-md-6"
+                    },
+                    {
+                        "type": "input",
+                        "placeholder": {
+                            "es": "Variable",
+                            "en": "Variable",
+                            "pr": "Variável"
+                        },
+                        "title": {
+                            "es": "Guardar archivos listados en variable:",
+                            "en": "Save listed files in variable:",
+                            "pr": "Salvar arquivos listados na variável:"
+                        },
+                        "description": {
+                            "es": "Nombre de la variable donde se guardarán los archivos listados",
+                            "en": "Name of the variable where the listed files will be saved",
+                            "pr": "Nome da variável onde os arquivos listados serão salvos"
+                        },
+                        "help": {
+                            "es": "Nombre de variable sin {}",
+                            "en": "Variable name without {}",
+                            "pr": "Nome da variável sem {}"
+                        },
+                        "remove_vars":true,
+                        "id": "var_",
+                        "css": "col-md-6"
+                    }
+                ]
+            },
+            "video_youtube": "",
+            "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyppVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMi1jMDAxIDYzLjEzOTQzOSwgMjAxMC8xMC8xMi0wODo0NTozMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIEVsZW1lbnRzIDExLjAgV2luZG93cyIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDoxQzI3N0IxQ0U3MzAxMUU1QTk3QUM1NjJBMEUwOEVGNyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDoxQzI3N0IxREU3MzAxMUU1QTk3QUM1NjJBMEUwOEVGNyI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjFDMjc3QjFBRTczMDExRTVBOTdBQzU2MkEwRTA4RUY3IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjFDMjc3QjFCRTczMDExRTVBOTdBQzU2MkEwRTA4RUY3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+tyxr4wAACsVJREFU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",
+            "module": "list_files",
             "module_name": "sftp_",
             "visible": true,
             "options": false,
