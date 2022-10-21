@@ -76,3 +76,10 @@ Lista os arquivos contidos em uma pasta
 | --- | --- | --- |
 |Nome do diretório|Nome do diretório do qual os arquivos serão listados|/home/test|
 |Salvar arquivos listados na variável|Nome da variável onde os arquivos listados serão salvos|Variável|
+
+### Fechar conexão
+
+Fecha a conexão com o servidor
+|Parâmetros|Descrição|exemplo|
+| --- | --- | --- |
+|Salvar resultado da desconexão:|Variável onde o resultado da desconexão será salvo|Variável|

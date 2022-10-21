@@ -235,3 +235,13 @@ if module == "rename_file":
         res = False
 
     SetVar(var_, res)
+    
+if module == "close_":
+    var_ = GetParams("var_")
+    
+    try:
+        pconn.close()
+        res = True
+    except Exception as e:
+        PrintException()
+        res = False

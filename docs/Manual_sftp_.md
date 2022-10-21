@@ -76,3 +76,10 @@ Lists files inside a folder
 | --- | --- | --- |
 |Directory name|Directory name from which the files will be listed|/home/test|
 |Save listed files in variable|Name of the variable where the listed files will be saved|Variable|
+
+### Close connection
+
+Close the connection to the server
+|Parameters|Description|example|
+| --- | --- | --- |
+|Save result of disconnection:|Variable where the result of the disconnection will be saved|Variable|

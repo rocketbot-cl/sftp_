@@ -34,6 +34,8 @@ Elimina un archivo del directorio actual o desde la ruta absoluta indicada
 7. Listar archivos en directorio  
 Lista los archivos contenidos en una carpeta  
 
+8. Cerrar conexión
+Cierra la conexión con el servidor
 
 
 

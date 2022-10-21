@@ -76,3 +76,10 @@ Lista los archivos contenidos en una carpeta
 | --- | --- | --- |
 |Nombre del directorio|Nombre del directorio del cual se listarán los archivos|/home/test|
 |Guardar archivos listados en variable|Nombre de la variable donde se guardarán los archivos listados|Variable|
+
+### Cerrar conexión
+
+Cierra la conexión con el servidor
+|Parámetros|Descripción|ejemplo|
+| --- | --- | --- |
+|Guardar resultado de desconexión:|Variable donde se guardará el resultado de la desconexión|Variable|
