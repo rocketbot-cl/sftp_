@@ -34,6 +34,8 @@ Delete file from the current directory or from the specified absolute path
 7. List files in directory  
 Lists files inside a folder  
 
+8. Close connection
+Close the connection to the server
 
 
 

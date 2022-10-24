@@ -34,6 +34,8 @@ Elimina um arquivo do diretório atual ou do caminho absoluto dado
 7. Listar arquivos em diretório  
 Lista os arquivos contidos em uma pasta  
 
+8. Fechar conexão
+Fecha a conexão com o servidor
 
 
 
