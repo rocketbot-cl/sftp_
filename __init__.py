@@ -245,3 +245,5 @@ if module == "close_":
     except Exception as e:
         PrintException()
         res = False
+        
+    SetVar(var_, res)
