@@ -25,6 +25,7 @@ Para instalar librerias se debe ingresar por terminal a la carpeta "libs"
 """
 
 import os
+import sys
 
 base_path = tmp_global_obj["basepath"]
 cur_path = base_path + 'modules' + os.sep + 'sftp_' + os.sep + 'libs' + os.sep
@@ -32,6 +33,10 @@ cur_path = base_path + 'modules' + os.sep + 'sftp_' + os.sep + 'libs' + os.sep
 cur_path_x64 = os.path.join(cur_path, 'Windows' + os.sep +  'x64' + os.sep)
 cur_path_x86 = os.path.join(cur_path, 'Windows' + os.sep +  'x86' + os.sep)
 
+if sys.maxsize > 2**32:
+    sys.path.append(cur_path_x64)
+else:
+    sys.path.append(cur_path_x86)
 
 import pysftp
 
