@@ -34,6 +34,7 @@ cur_path_x86 = os.path.join(cur_path, 'Windows' + os.sep +  'x86' + os.sep)
 
 
 import pysftp
+
 """
     Obtengo el modulo que fue invocado
 """
