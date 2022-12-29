@@ -111,12 +111,14 @@ class ProxyCommand(ClosingContextManager):
                     )
             return buffer
         except socket.timeout:
-            if buffer:
-                # Don't raise socket.timeout, return partial result instead
-                return buffer
-            raise  # socket.timeout is a subclass of IOError
+            if not buffer:
+                raise  # socket.timeout is a subclass of IOError
         except IOError as e:
             raise ProxyCommandFailure(" ".join(self.cmd), e.strerror)
+
+        finally:
+            # Don't raise socket.timeout, return partial result instead
+            return buffer
 
     def close(self):
         os.kill(self.process.pid, signal.SIGTERM)
