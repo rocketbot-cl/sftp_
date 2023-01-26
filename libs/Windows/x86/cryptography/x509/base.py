@@ -21,6 +21,8 @@ from cryptography.x509.name import Name
 
 _EARLIEST_UTC_TIME = datetime.datetime(1950, 1, 1)
 
+EXPECTING_509_MESSAGE = "Expecting x509.Name object."
+
 
 def _reject_duplicate_extension(extension, extensions):
     # This is quadratic in the number of extensions
@@ -402,7 +404,7 @@ class CertificateSigningRequestBuilder(object):
         Sets the certificate requestor's distinguished name.
         """
         if not isinstance(name, Name):
-            raise TypeError('Expecting x509.Name object.')
+            raise TypeError(EXPECTING_509_MESSAGE)
         if self._subject_name is not None:
             raise ValueError('The subject name may only be set once.')
         return CertificateSigningRequestBuilder(name, self._extensions)
@@ -448,7 +450,7 @@ class CertificateBuilder(object):
         Sets the CA's distinguished name.
         """
         if not isinstance(name, Name):
-            raise TypeError('Expecting x509.Name object.')
+            raise TypeError(EXPECTING_509_MESSAGE)
         if self._issuer_name is not None:
             raise ValueError('The issuer name may only be set once.')
         return CertificateBuilder(
@@ -462,7 +464,7 @@ class CertificateBuilder(object):
         Sets the requestor's distinguished name.
         """
         if not isinstance(name, Name):
-            raise TypeError('Expecting x509.Name object.')
+            raise TypeError(EXPECTING_509_MESSAGE)
         if self._subject_name is not None:
             raise ValueError('The subject name may only be set once.')
         return CertificateBuilder(

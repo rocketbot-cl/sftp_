@@ -12,6 +12,12 @@ else:
 class CTypesType(type):
     pass
 
+
+# a peticion de SONAR (??)
+SIGNED_CHAR = "signed char"
+UNSIGNED_CHAR = 'unsigned char'
+C_NAME_REGEX = '(* &)'
+
 class CTypesData(object):
     __metaclass__ = CTypesType
     __slots__ = ['__weakref__']
@@ -272,14 +278,15 @@ class CTypesBaseStructOrUnion(CTypesData):
 
 class CTypesBackend(object):
 
+
     PRIMITIVE_TYPES = {
         'char': ctypes.c_char,
         'short': ctypes.c_short,
         'int': ctypes.c_int,
         'long': ctypes.c_long,
         'long long': ctypes.c_longlong,
-        'signed char': ctypes.c_byte,
-        'unsigned char': ctypes.c_ubyte,
+        SIGNED_CHAR: ctypes.c_byte,
+        UNSIGNED_CHAR: ctypes.c_ubyte,
         'unsigned short': ctypes.c_ushort,
         'unsigned int': ctypes.c_uint,
         'unsigned long': ctypes.c_ulong,
@@ -290,7 +297,7 @@ class CTypesBackend(object):
         }
 
     for _name in ['unsigned long long', 'unsigned long',
-                  'unsigned int', 'unsigned short', 'unsigned char']:
+                  'unsigned int', 'unsigned short', UNSIGNED_CHAR]:
         _size = ctypes.sizeof(PRIMITIVE_TYPES[_name])
         PRIMITIVE_TYPES['uint%d_t' % (8*_size)] = PRIMITIVE_TYPES[_name]
         if _size == ctypes.sizeof(ctypes.c_void_p):
@@ -298,7 +305,7 @@ class CTypesBackend(object):
         if _size == ctypes.sizeof(ctypes.c_size_t):
             PRIMITIVE_TYPES['size_t'] = PRIMITIVE_TYPES[_name]
 
-    for _name in ['long long', 'long', 'int', 'short', 'signed char']:
+    for _name in ['long long', 'long', 'int', 'short', SIGNED_CHAR]:
         _size = ctypes.sizeof(PRIMITIVE_TYPES[_name])
         PRIMITIVE_TYPES['int%d_t' % (8*_size)] = PRIMITIVE_TYPES[_name]
         if _size == ctypes.sizeof(ctypes.c_void_p):
@@ -349,7 +356,7 @@ class CTypesBackend(object):
         elif name in ('float', 'double'):
             kind = 'float'
         else:
-            if name in ('signed char', 'unsigned char'):
+            if name in (SIGNED_CHAR, UNSIGNED_CHAR):
                 kind = 'byte'
             elif name == '_Bool':
                 kind = 'bool'
@@ -498,8 +505,8 @@ class CTypesBackend(object):
         getbtype = self.ffi._get_cached_btype
         if BItem is getbtype(model.PrimitiveType('char')):
             kind = 'charp'
-        elif BItem in (getbtype(model.PrimitiveType('signed char')),
-                       getbtype(model.PrimitiveType('unsigned char'))):
+        elif BItem in (getbtype(model.PrimitiveType(SIGNED_CHAR)),
+                       getbtype(model.PrimitiveType(UNSIGNED_CHAR))):
             kind = 'bytep'
         elif BItem is getbtype(model.void_type):
             kind = 'voidp'
@@ -517,7 +524,7 @@ class CTypesBackend(object):
             else:
                 _ctype = ctypes.c_void_p
             if issubclass(BItem, CTypesGenericArray):
-                _reftypename = BItem._get_c_name('(* &)')
+                _reftypename = BItem._get_c_name(C_NAME_REGEX)
             else:
                 _reftypename = BItem._get_c_name(' * &')
 
@@ -599,8 +606,8 @@ class CTypesBackend(object):
         getbtype = self.ffi._get_cached_btype
         if BItem is getbtype(model.PrimitiveType('char')):
             kind = 'char'
-        elif BItem in (getbtype(model.PrimitiveType('signed char')),
-                       getbtype(model.PrimitiveType('unsigned char'))):
+        elif BItem in (getbtype(model.PrimitiveType(SIGNED_CHAR)),
+                       getbtype(model.PrimitiveType(UNSIGNED_CHAR))):
             kind = 'byte'
         else:
             kind = 'generic'
@@ -874,7 +881,7 @@ class CTypesBackend(object):
                     try:
                         res2 = init(*args2)
                         res2 = BResult._to_ctypes(res2)
-                    except:
+                    except Exception as e:
                         traceback.print_exc()
                         res2 = error
                     if issubclass(BResult, CTypesGenericPtr):
@@ -908,10 +915,10 @@ class CTypesBackend(object):
             def __repr__(self):
                 c_name = getattr(self, '_name', None)
                 if c_name:
-                    i = self._reftypename.index('(* &)')
+                    i = self._reftypename.index(C_NAME_REGEX)
                     if self._reftypename[i-1] not in ' )*':
                         c_name = ' ' + c_name
-                    c_name = self._reftypename.replace('(* &)', c_name)
+                    c_name = self._reftypename.replace(C_NAME_REGEX, c_name)
                 return CTypesData.__repr__(self, c_name)
 
             def _get_own_repr(self):

@@ -37,8 +37,15 @@ if sys.maxsize > 2**32:
     sys.path.append(cur_path_x64)
 else:
     sys.path.append(cur_path_x86)
+        
+import traceback
 
-import pysftp
+try:
+    import pysftp
+except Exception as e:
+    traceback.print_exc()
+    print("Error: No se pudo importar pysftp")
+    raise e
 
 """
     Obtengo el modulo que fue invocado
@@ -84,8 +91,9 @@ try:
                 pconn = pysftp.Connection(host=server_, username=user_, password=pass_, port=port_, cnopts=cnopts)
                 print("Connection succesfully stablished ... ")
             res = True
-        except:
+        except (pysftp.ConnectionException, pysftp.CredentialException, Exception) as e:
             PrintException()
+            traceback.print_exc()
             res = False
 
         SetVar(var_, res)
@@ -135,7 +143,7 @@ try:
                 pconn.put(file_, finalPathServer)
             res = True
 
-        except:
+        except Exception:
             PrintException()
             res = False
 
@@ -175,7 +183,7 @@ try:
 
             pconn.get(remoteFilePath, localFilePath)
             res = True
-        except:
+        except (pysftp.ConnectionException, pysftp.CredentialException, pysftp.SSHException) as e:
             PrintException()
             try:
                 os.remove(localFilePath)
@@ -198,7 +206,7 @@ try:
             del_ = pconn.remove(delFilePath)
             res = True
 
-        except:
+        except Exception as e:
             PrintException()
             res = False
 

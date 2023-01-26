@@ -10,6 +10,7 @@ import six
 
 from cryptography.exceptions import UnsupportedAlgorithm, _Reasons
 
+UnsupportedAlgorithm_STR = "ed448 is not supported by this version of OpenSSL."
 
 @six.add_metaclass(abc.ABCMeta)
 class Ed448PublicKey(object):
@@ -18,7 +19,7 @@ class Ed448PublicKey(object):
         from cryptography.hazmat.backends.openssl.backend import backend
         if not backend.ed448_supported():
             raise UnsupportedAlgorithm(
-                "ed448 is not supported by this version of OpenSSL.",
+                UnsupportedAlgorithm_STR,
                 _Reasons.UNSUPPORTED_PUBLIC_KEY_ALGORITHM
             )
 
@@ -44,7 +45,7 @@ class Ed448PrivateKey(object):
         from cryptography.hazmat.backends.openssl.backend import backend
         if not backend.ed448_supported():
             raise UnsupportedAlgorithm(
-                "ed448 is not supported by this version of OpenSSL.",
+                UnsupportedAlgorithm_STR,
                 _Reasons.UNSUPPORTED_PUBLIC_KEY_ALGORITHM
             )
         return backend.ed448_generate_key()
@@ -54,7 +55,7 @@ class Ed448PrivateKey(object):
         from cryptography.hazmat.backends.openssl.backend import backend
         if not backend.ed448_supported():
             raise UnsupportedAlgorithm(
-                "ed448 is not supported by this version of OpenSSL.",
+                UnsupportedAlgorithm_STR,
                 _Reasons.UNSUPPORTED_PUBLIC_KEY_ALGORITHM
             )
 

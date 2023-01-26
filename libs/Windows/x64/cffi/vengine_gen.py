@@ -122,9 +122,11 @@ class VGenericEngine(object):
                 raise
 
     def _generate_nothing(self, tp, name):
+        """I don't have idea why this method is empty. Maybe it works as a interface."""
         pass
 
     def _loaded_noop(self, tp, name, module, **kwds):
+        """I don't have idea why this method is empty. Maybe it works as a interface."""
         pass
 
     # ----------

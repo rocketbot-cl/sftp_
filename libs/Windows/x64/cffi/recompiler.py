@@ -1,7 +1,16 @@
 import os, sys, io
 from . import ffiplatform, model
 from .error import VerificationError
-from .cffi_opcode import *
+from .cffi_opcode import (
+    OP_NOOP, G_FLAGS, format_four_bytes, OP_BITFIELD,
+    PRIM_UINT8, PRIM_INT8, PRIM_UINT16, PRIM_INT16, PRIM_UINT32, PRIM_INT32,
+    PRIM_UINT64, PRIM_INT64, OP_PRIMITIVE, OP_POINTER, OP_ARRAY, OP_CPYTHON_BLTN_V,
+    OP_CPYTHON_BLTN_O, OP_CPYTHON_BLTN_N, OP_DLOPEN_FUNC, CffiOp, OP_ENUM, OP_CONSTANT,
+    OP_DLOPEN_CONST, OP_CONSTANT_INT, OP_FUNCTION_END, OP_FUNCTION, PRIMITIVE_TO_INDEX,
+    OP_EXTERN_PYTHON, OP_GLOBAL_VAR_F, OP_GLOBAL_VAR, 
+    OP_STRUCT_UNION, OP_OPEN_ARRAY, PRIM_VOID
+    )
+
 
 VERSION_BASE = 0x2601
 VERSION_EMBEDDED = 0x2701
@@ -9,6 +18,16 @@ VERSION_CHAR16CHAR32 = 0x2801
 
 USE_LIMITED_API = (sys.platform != 'win32' or sys.version_info < (3, 0) or
                    sys.version_info >= (3, 5))
+
+
+# Constante para SONAR
+ELSE_STR = '#else'
+ENDIF_STR = '#endif'
+ARGUMENT_STR = 'argument of %s'
+RESULT_STR = 'result of %s'
+SIZE_T_STR = '(size_t)-1'
+CFFI_CONST_STR = '_cffi_const_%s'
+RETURN_NULL_STR = '    return NULL;'
 
 
 class GlobalExpr:
@@ -320,10 +339,10 @@ class Recompiler:
             prnt('#elif PY_MAJOR_VERSION >= 3')
             prnt('# define _CFFI_PYTHON_STARTUP_FUNC  PyInit_%s' % (
                 base_module_name,))
-            prnt('#else')
+            prnt(ELSE_STR)
             prnt('# define _CFFI_PYTHON_STARTUP_FUNC  init%s' % (
                 base_module_name,))
-            prnt('#endif')
+            prnt(ENDIF_STR)
             lines = self._rel_readlines('_embedding.h')
             i = lines.index('#include "_cffi_errors.h"\n')
             lines[i:i+1] = self._rel_readlines('_cffi_errors.h')
@@ -416,7 +435,7 @@ class Recompiler:
         # the init function
         prnt('#ifdef __GNUC__')
         prnt('#  pragma GCC visibility push(default)  /* for -fvisibility= */')
-        prnt('#endif')
+        prnt(ENDIF_STR)
         prnt()
         prnt('#ifdef PYPY_VERSION')
         prnt('PyMODINIT_FUNC')
@@ -430,8 +449,8 @@ class Recompiler:
         prnt('    p[0] = (const void *)0x%x;' % self._version)
         prnt('    p[1] = &_cffi_type_context;')
         prnt('#if PY_MAJOR_VERSION >= 3')
-        prnt('    return NULL;')
-        prnt('#endif')
+        prnt(RETURN_NULL_STR)
+        prnt(ENDIF_STR)
         prnt('}')
         # on Windows, distutils insists on putting init_cffi_xyz in
         # 'export_symbols', so instead of fighting it, just give up and
@@ -451,18 +470,18 @@ class Recompiler:
         prnt('  return _cffi_init("%s", 0x%x, &_cffi_type_context);' % (
             self.module_name, self._version))
         prnt('}')
-        prnt('#else')
+        prnt(ELSE_STR)
         prnt('PyMODINIT_FUNC')
         prnt('init%s(void)' % (base_module_name,))
         prnt('{')
         prnt('  _cffi_init("%s", 0x%x, &_cffi_type_context);' % (
             self.module_name, self._version))
         prnt('}')
-        prnt('#endif')
+        prnt(ENDIF_STR)
         prnt()
         prnt('#ifdef __GNUC__')
         prnt('#  pragma GCC visibility pop')
-        prnt('#endif')
+        prnt(ENDIF_STR)
         self._version = None
 
     def _to_py(self, x):
@@ -639,6 +658,7 @@ class Recompiler:
         self._do_collect_type(self._typedef_type(tp, name))
 
     def _generate_cpy_typedef_decl(self, tp, name):
+        """I don't have idea why this method is empty. Maybe it works as a interface."""
         pass
 
     def _typedef_ctx(self, tp, name):
@@ -684,7 +704,7 @@ class Recompiler:
         # the 'd' version of the function, only for addressof(lib, 'func')
         arguments = []
         call_arguments = []
-        context = 'argument of %s' % name
+        context = create_context(name)
         for i, type in enumerate(tp.args):
             arguments.append(type.get_c_name(' x%d' % i, context))
             call_arguments.append('x%d' % i)
@@ -710,7 +730,7 @@ class Recompiler:
         prnt('_cffi_f_%s(PyObject *self, PyObject *%s)' % (name, argname))
         prnt('{')
         #
-        context = 'argument of %s' % name
+        context = ARGUMENT_STR % name
         for i, type in enumerate(tp.args):
             arg = type.get_c_name(' x%d' % i, context)
             prnt('  %s;' % arg)
@@ -724,7 +744,7 @@ class Recompiler:
         #
         if not isinstance(tp.result, model.VoidType):
             result_code = 'result = '
-            context = 'result of %s' % name
+            context = RESULT_STR  % name
             result_decl = '  %s;' % tp.result.get_c_name(' result', context)
             prnt(result_decl)
             prnt('  PyObject *pyresult;')
@@ -740,7 +760,7 @@ class Recompiler:
             prnt('  if (!PyArg_UnpackTuple(args, "%s", %d, %d, %s))' % (
                 name, len(rng), len(rng),
                 ', '.join(['&arg%d' % i for i in rng])))
-            prnt('    return NULL;')
+            prnt(RETURN_NULL_STR)
         prnt()
         #
         for i, type in enumerate(tp.args):
@@ -773,7 +793,7 @@ class Recompiler:
             prnt('  return Py_None;')
         prnt('}')
         #
-        prnt('#else')        # ------------------------------
+        prnt(ELSE_STR)        # ------------------------------
         #
         # the PyPy version: need to replace struct/union arguments with
         # pointers, and if the result is a struct/union, insert a first
@@ -786,7 +806,7 @@ class Recompiler:
         difference = False
         arguments = []
         call_arguments = []
-        context = 'argument of %s' % name
+        context = ARGUMENT_STR % name
         for i, type in enumerate(tp.args):
             indirection = ''
             if need_indirection(type):
@@ -797,7 +817,7 @@ class Recompiler:
             call_arguments.append('%sx%d' % (indirection, i))
         tp_result = tp.result
         if need_indirection(tp_result):
-            context = 'result of %s' % name
+            context = RESULT_STR  % name
             arg = tp_result.get_c_name(' *result', context)
             arguments.insert(0, arg)
             tp_result = model.void_type
@@ -821,7 +841,7 @@ class Recompiler:
         else:
             prnt('#  define _cffi_f_%s _cffi_d_%s' % (name, name))
         #
-        prnt('#endif')        # ------------------------------
+        prnt(ENDIF_STR)        # ------------------------------
         prnt()
 
     def _generate_cpy_function_ctx(self, tp, name):
@@ -944,14 +964,14 @@ class Recompiler:
                 elif cname is None or (
                         isinstance(fldtype, model.ArrayType) and
                         fldtype.length is None):
-                    size = '(size_t)-1'
+                    size = SIZE_T_STR
                 else:
                     size = 'sizeof(((%s)0)->%s)' % (
                         tp.get_c_name('*') if named_ptr is None
                                            else named_ptr.name,
                         fldname)
                 if cname is None or fbitsize >= 0:
-                    offset = '(size_t)-1'
+                    offset = SIZE_T_STR
                 elif named_ptr is not None:
                     offset = '((char *)&((%s)0)->%s) - (char *)0' % (
                         named_ptr.name, fldname)
@@ -976,7 +996,7 @@ class Recompiler:
                     align = 'offsetof(struct _cffi_align_%s, y)' % (approxname,)
                 comment = None
         else:
-            size = '(size_t)-1'
+            size = SIZE_T_STR
             align = -1
             first_field_index = -1
             comment = reason_for_not_expanding
@@ -1109,7 +1129,7 @@ class Recompiler:
             type_index = self._typesdict[tp]
             type_op = CffiOp(const_kind, type_index)
         self._lsts["global"].append(
-            GlobalExpr(name, '_cffi_const_%s' % name, type_op))
+            GlobalExpr(name, CFFI_CONST_STR % name, type_op))
 
     # ----------
     # enums
@@ -1128,7 +1148,7 @@ class Recompiler:
             tp.check_not_partial()
         for enumerator, enumvalue in zip(tp.enumerators, tp.enumvalues):
             self._lsts["global"].append(
-                GlobalExpr(enumerator, '_cffi_const_%s' % enumerator, type_op,
+                GlobalExpr(enumerator, CFFI_CONST_STR % enumerator, type_op,
                            check_value=enumvalue))
         #
         if cname is not None and '$' not in cname and not self.target_is_python:
@@ -1149,6 +1169,7 @@ class Recompiler:
     # macros: for now only for integers
 
     def _generate_cpy_macro_collecttype(self, tp, name):
+        """I don't have idea why this method is empty. Maybe it works as a interface."""
         pass
 
     def _generate_cpy_macro_decl(self, tp, name):
@@ -1169,7 +1190,7 @@ class Recompiler:
             check_value = tp     # an integer
         type_op = CffiOp(OP_CONSTANT_INT, -1)
         self._lsts["global"].append(
-            GlobalExpr(name, '_cffi_const_%s' % name, type_op,
+            GlobalExpr(name, CFFI_CONST_STR % name, type_op,
                        check_value=check_value))
 
     # ----------
@@ -1235,7 +1256,7 @@ class Recompiler:
         if isinstance(tp.result, model.VoidType):
             size_of_result = '0'
         else:
-            context = 'result of %s' % name
+            context = RESULT_STR  % name
             size_of_result = '(int)sizeof(%s)' % (
                 tp.result.get_c_name('', context),)
         prnt('static struct _cffi_externpy_s _cffi_externpy__%s =' % name)
@@ -1244,7 +1265,7 @@ class Recompiler:
         prnt()
         #
         arguments = []
-        context = 'argument of %s' % name
+        context = ARGUMENT_STR % name
         for i, type in enumerate(tp.args):
             arg = type.get_c_name(' a%d' % i, context)
             arguments.append(arg)

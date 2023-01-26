@@ -16,6 +16,9 @@ if typing.TYPE_CHECKING:
 
 _X448_KEY_SIZE = 56
 
+UNSIGNED_CHAR_STR = "unsigned char []"
+SIZE_T_STR = "size_t *"
+
 
 class _X448PublicKey(X448PublicKey):
     def __init__(self, backend: "Backend", evp_pkey):
@@ -46,8 +49,8 @@ class _X448PublicKey(X448PublicKey):
         )
 
     def _raw_public_bytes(self) -> bytes:
-        buf = self._backend._ffi.new("unsigned char []", _X448_KEY_SIZE)
-        buflen = self._backend._ffi.new("size_t *", _X448_KEY_SIZE)
+        buf = self._backend._ffi.new(UNSIGNED_CHAR_STR, _X448_KEY_SIZE)
+        buflen = self._backend._ffi.new(SIZE_T_STR, _X448_KEY_SIZE)
         res = self._backend._lib.EVP_PKEY_get_raw_public_key(
             self._evp_pkey, buf, buflen
         )
@@ -62,8 +65,8 @@ class _X448PrivateKey(X448PrivateKey):
         self._evp_pkey = evp_pkey
 
     def public_key(self) -> X448PublicKey:
-        buf = self._backend._ffi.new("unsigned char []", _X448_KEY_SIZE)
-        buflen = self._backend._ffi.new("size_t *", _X448_KEY_SIZE)
+        buf = self._backend._ffi.new(UNSIGNED_CHAR_STR, _X448_KEY_SIZE)
+        buflen = self._backend._ffi.new(SIZE_T_STR, _X448_KEY_SIZE)
         res = self._backend._lib.EVP_PKEY_get_raw_public_key(
             self._evp_pkey, buf, buflen
         )
@@ -107,8 +110,8 @@ class _X448PrivateKey(X448PrivateKey):
         )
 
     def _raw_private_bytes(self) -> bytes:
-        buf = self._backend._ffi.new("unsigned char []", _X448_KEY_SIZE)
-        buflen = self._backend._ffi.new("size_t *", _X448_KEY_SIZE)
+        buf = self._backend._ffi.new(UNSIGNED_CHAR_STR, _X448_KEY_SIZE)
+        buflen = self._backend._ffi.new(SIZE_T_STR, _X448_KEY_SIZE)
         res = self._backend._lib.EVP_PKEY_get_raw_private_key(
             self._evp_pkey, buf, buflen
         )

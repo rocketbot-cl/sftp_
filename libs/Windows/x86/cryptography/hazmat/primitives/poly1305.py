@@ -10,6 +10,7 @@ from cryptography.exceptions import (
     AlreadyFinalized, UnsupportedAlgorithm, _Reasons
 )
 
+AlreadyFinalized_MESSAGE = "Context was already finalized."
 
 class Poly1305(object):
     def __init__(self, key):
@@ -23,13 +24,13 @@ class Poly1305(object):
 
     def update(self, data):
         if self._ctx is None:
-            raise AlreadyFinalized("Context was already finalized.")
+            raise AlreadyFinalized(AlreadyFinalized_MESSAGE)
         utils._check_byteslike("data", data)
         self._ctx.update(data)
 
     def finalize(self):
         if self._ctx is None:
-            raise AlreadyFinalized("Context was already finalized.")
+            raise AlreadyFinalized(AlreadyFinalized_MESSAGE)
         mac = self._ctx.finalize()
         self._ctx = None
         return mac
@@ -37,7 +38,7 @@ class Poly1305(object):
     def verify(self, tag):
         utils._check_bytes("tag", tag)
         if self._ctx is None:
-            raise AlreadyFinalized("Context was already finalized.")
+            raise AlreadyFinalized(AlreadyFinalized_MESSAGE)
 
         ctx, self._ctx = self._ctx, None
         ctx.verify(tag)

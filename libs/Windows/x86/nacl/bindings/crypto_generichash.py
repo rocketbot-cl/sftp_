@@ -35,6 +35,8 @@ crypto_generichash_STATEBYTES = lib.crypto_generichash_statebytes()
 _OVERLONG = '{0} length greater than {1} bytes'
 _TOOBIG = '{0} greater than {1}'
 
+UNSIGNED_CHAR_STR = "unsigned char []"
+
 
 def _checkparams(digest_size, key, salt, person):
     """Check hash paramters"""
@@ -106,8 +108,8 @@ def generichash_blake2b_salt_personal(data,
     digest = ffi.new("unsigned char[]", digest_size)
 
     # both _salt and _personal must be zero-padded to the correct length
-    _salt = ffi.new("unsigned char []", crypto_generichash_SALTBYTES)
-    _person = ffi.new("unsigned char []", crypto_generichash_PERSONALBYTES)
+    _salt = ffi.new(UNSIGNED_CHAR_STR, crypto_generichash_SALTBYTES)
+    _person = ffi.new(UNSIGNED_CHAR_STR, crypto_generichash_PERSONALBYTES)
 
     ffi.memmove(_salt, salt, len(salt))
     ffi.memmove(_person, person, len(person))
@@ -153,8 +155,8 @@ def generichash_blake2b_init(key=b'', salt=b'',
     statebuf = ffi.new("unsigned char[]", crypto_generichash_STATEBYTES)
 
     # both _salt and _personal must be zero-padded to the correct length
-    _salt = ffi.new("unsigned char []", crypto_generichash_SALTBYTES)
-    _person = ffi.new("unsigned char []", crypto_generichash_PERSONALBYTES)
+    _salt = ffi.new(UNSIGNED_CHAR_STR, crypto_generichash_SALTBYTES)
+    _person = ffi.new(UNSIGNED_CHAR_STR, crypto_generichash_PERSONALBYTES)
 
     ffi.memmove(_salt, salt, len(salt))
     ffi.memmove(_person, person, len(person))

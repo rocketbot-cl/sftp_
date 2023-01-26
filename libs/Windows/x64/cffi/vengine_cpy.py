@@ -5,6 +5,11 @@ import sys, imp
 from . import model
 from .error import VerificationError
 
+# CONSTANTS TO SONAR
+RETURN_NULL_STR = '    return NULL;'
+CFFI_LAYOUT_STR = '_cffi_layout_%s_%s'
+RETURN_STR = '    return -1;'
+RETURN_STR_S = '  return %s;'
 
 class VCPythonEngine(object):
     _class_key = 'x'
@@ -118,10 +123,10 @@ class VCPythonEngine(object):
         prnt('  PyObject *lib;')
         prnt('  lib = PyModule_Create(&_cffi_module_def);')
         prnt('  if (lib == NULL)')
-        prnt('    return NULL;')
+        prnt(RETURN_NULL_STR)
         prnt('  if (%s < 0 || _cffi_init() < 0) {' % (constants,))
         prnt('    Py_DECREF(lib);')
-        prnt('    return NULL;')
+        prnt(RETURN_NULL_STR)
         prnt('  }')
         prnt('  return lib;')
         prnt('}')
@@ -232,9 +237,11 @@ class VCPythonEngine(object):
                 raise
 
     def _generate_nothing(self, tp, name):
+        """I don't have idea why this method is empty. Maybe it works as a interface."""
         pass
 
     def _loaded_noop(self, tp, name, module, **kwds):
+        """I don't have idea why this method is empty. Maybe it works as a interface."""
         pass
 
     # ----------
@@ -391,7 +398,7 @@ class VCPythonEngine(object):
             prnt()
             prnt('  if (!PyArg_ParseTuple(args, "%s:%s", %s))' % (
                 'O' * numargs, name, ', '.join(['&arg%d' % i for i in rng])))
-            prnt('    return NULL;')
+            prnt(RETURN_NULL_STR)
         prnt()
         #
         for i, type in enumerate(tp.args):
@@ -475,7 +482,7 @@ class VCPythonEngine(object):
         if tp.fldnames is None:
             return     # nothing to do with opaque structs
         checkfuncname = '_cffi_check_%s_%s' % (prefix, name)
-        layoutfuncname = '_cffi_layout_%s_%s' % (prefix, name)
+        layoutfuncname = CFFI_LAYOUT_STR % (prefix, name)
         cname = ('%s %s' % (prefix, name)).strip()
         #
         prnt = self._prnt
@@ -525,14 +532,14 @@ class VCPythonEngine(object):
     def _generate_struct_or_union_method(self, tp, prefix, name):
         if tp.fldnames is None:
             return     # nothing to do with opaque structs
-        layoutfuncname = '_cffi_layout_%s_%s' % (prefix, name)
+        layoutfuncname = CFFI_LAYOUT_STR % (prefix, name)
         self._prnt('  {"%s", %s, METH_NOARGS, NULL},' % (layoutfuncname,
                                                          layoutfuncname))
 
     def _loading_struct_or_union(self, tp, prefix, name, module):
         if tp.fldnames is None:
             return     # nothing to do with opaque structs
-        layoutfuncname = '_cffi_layout_%s_%s' % (prefix, name)
+        layoutfuncname = CFFI_LAYOUT_STR % (prefix, name)
         #
         function = getattr(module, layoutfuncname)
         layout = function()
@@ -640,7 +647,7 @@ class VCPythonEngine(object):
         else:
             prnt('  o = _cffi_from_c_int_const(%s);' % name)
         prnt('  if (o == NULL)')
-        prnt('    return -1;')
+        prnt(RETURN_STR)
         if size_too:
             prnt('  {')
             prnt('    PyObject *o1 = o;')
@@ -653,8 +660,8 @@ class VCPythonEngine(object):
         prnt('  res = PyObject_SetAttrString(lib, "%s", o);' % name)
         prnt('  Py_DECREF(o);')
         prnt('  if (res < 0)')
-        prnt('    return -1;')
-        prnt('  return %s;' % self._chained_list_constants[delayed])
+        prnt(RETURN_STR)
+        prnt(RETURN_STR_S % self._chained_list_constants[delayed])
         self._chained_list_constants[delayed] = funcname + '(lib)'
         prnt('}')
         prnt()
@@ -693,7 +700,7 @@ class VCPythonEngine(object):
         prnt('                 "%s%s has the real value %s, not %s",')
         prnt('                 "%s", "%s", buf, "%d");' % (
             err_prefix, name, value))
-        prnt('    return -1;')
+        prnt(RETURN_STR)
         prnt('  }')
 
     def _enum_funcname(self, prefix, name):
@@ -714,7 +721,7 @@ class VCPythonEngine(object):
         for enumerator, enumvalue in zip(tp.enumerators, tp.enumvalues):
             self._check_int_constant_value(enumerator, enumvalue,
                                            "enum %s: " % name)
-        prnt('  return %s;' % self._chained_list_constants[True])
+        prnt(RETURN_STR_S % self._chained_list_constants[True])
         self._chained_list_constants[True] = funcname + '(lib)'
         prnt('}')
         prnt()
@@ -808,7 +815,7 @@ class VCPythonEngine(object):
         prnt = self._prnt
         prnt('static int _cffi_setup_custom(PyObject *lib)')
         prnt('{')
-        prnt('  return %s;' % self._chained_list_constants[True])
+        prnt(RETURN_STR_S % self._chained_list_constants[True])
         prnt('}')
 
 cffimod_header = r'''

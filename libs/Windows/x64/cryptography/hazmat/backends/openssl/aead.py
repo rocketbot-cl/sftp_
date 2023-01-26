@@ -24,6 +24,9 @@ if typing.TYPE_CHECKING:
 _ENCRYPT = 1
 _DECRYPT = 0
 
+INT_STR = "int *"
+UNSIGNED_CHAR_STR = "unsigned char[]"
+
 
 def _aead_cipher_name(cipher: "_AEAD_TYPES") -> bytes:
     from cryptography.hazmat.primitives.ciphers.aead import (
@@ -120,7 +123,7 @@ def _aead_setup(
 
 
 def _set_length(backend: "Backend", ctx, data_len: int) -> None:
-    intptr = backend._ffi.new("int *")
+    intptr = backend._ffi.new(INT_STR)
     res = backend._lib.EVP_CipherUpdate(
         ctx, backend._ffi.NULL, intptr, backend._ffi.NULL, data_len
     )
@@ -128,7 +131,7 @@ def _set_length(backend: "Backend", ctx, data_len: int) -> None:
 
 
 def _process_aad(backend: "Backend", ctx, associated_data: bytes) -> None:
-    outlen = backend._ffi.new("int *")
+    outlen = backend._ffi.new(INT_STR)
     res = backend._lib.EVP_CipherUpdate(
         ctx, backend._ffi.NULL, outlen, associated_data, len(associated_data)
     )
@@ -136,8 +139,8 @@ def _process_aad(backend: "Backend", ctx, associated_data: bytes) -> None:
 
 
 def _process_data(backend: "Backend", ctx, data: bytes) -> bytes:
-    outlen = backend._ffi.new("int *")
-    buf = backend._ffi.new("unsigned char[]", len(data))
+    outlen = backend._ffi.new(INT_STR)
+    buf = backend._ffi.new(UNSIGNED_CHAR_STR, len(data))
     res = backend._lib.EVP_CipherUpdate(ctx, buf, outlen, data, len(data))
     if res == 0:
         # AES SIV can error here if the data is invalid on decrypt
@@ -168,15 +171,15 @@ def _encrypt(
     for ad in associated_data:
         _process_aad(backend, ctx, ad)
     processed_data = _process_data(backend, ctx, data)
-    outlen = backend._ffi.new("int *")
+    outlen = backend._ffi.new(INT_STR)
     # All AEADs we support besides OCB are streaming so they return nothing
     # in finalization. OCB can return up to (16 byte block - 1) bytes so
     # we need a buffer here too.
-    buf = backend._ffi.new("unsigned char[]", 16)
+    buf = backend._ffi.new(UNSIGNED_CHAR_STR, 16)
     res = backend._lib.EVP_CipherFinal_ex(ctx, buf, outlen)
     backend.openssl_assert(res != 0)
     processed_data += backend._ffi.buffer(buf, outlen[0])[:]
-    tag_buf = backend._ffi.new("unsigned char[]", tag_length)
+    tag_buf = backend._ffi.new(UNSIGNED_CHAR_STR, tag_length)
     res = backend._lib.EVP_CIPHER_CTX_ctrl(
         ctx, backend._lib.EVP_CTRL_AEAD_GET_TAG, tag_length, tag_buf
     )
@@ -229,8 +232,8 @@ def _decrypt(
     # CCM has a different error path if the tag doesn't match. Errors are
     # raised in Update and Final is irrelevant.
     if isinstance(cipher, AESCCM):
-        outlen = backend._ffi.new("int *")
-        buf = backend._ffi.new("unsigned char[]", len(data))
+        outlen = backend._ffi.new(INT_STR)
+        buf = backend._ffi.new(UNSIGNED_CHAR_STR, len(data))
         res = backend._lib.EVP_CipherUpdate(ctx, buf, outlen, data, len(data))
         if res != 1:
             backend._consume_errors()
@@ -239,9 +242,9 @@ def _decrypt(
         processed_data = backend._ffi.buffer(buf, outlen[0])[:]
     else:
         processed_data = _process_data(backend, ctx, data)
-        outlen = backend._ffi.new("int *")
+        outlen = backend._ffi.new(INT_STR)
         # OCB can return up to 15 bytes (16 byte block - 1) in finalization
-        buf = backend._ffi.new("unsigned char[]", 16)
+        buf = backend._ffi.new(UNSIGNED_CHAR_STR, 16)
         res = backend._lib.EVP_CipherFinal_ex(ctx, buf, outlen)
         processed_data += backend._ffi.buffer(buf, outlen[0])[:]
         if res == 0:

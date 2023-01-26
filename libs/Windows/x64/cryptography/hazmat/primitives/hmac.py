@@ -12,6 +12,8 @@ from cryptography.exceptions import (
 from cryptography.hazmat.backends.openssl.hmac import _HMACContext
 from cryptography.hazmat.primitives import hashes
 
+AlreadyFinalized_MESSAGE = "Context was already finalized."
+
 
 class HMAC(hashes.HashContext):
     _ctx: typing.Optional[_HMACContext]
@@ -43,13 +45,13 @@ class HMAC(hashes.HashContext):
 
     def update(self, data: bytes) -> None:
         if self._ctx is None:
-            raise AlreadyFinalized("Context was already finalized.")
+            raise AlreadyFinalized(AlreadyFinalized_MESSAGE)
         utils._check_byteslike("data", data)
         self._ctx.update(data)
 
     def copy(self) -> "HMAC":
         if self._ctx is None:
-            raise AlreadyFinalized("Context was already finalized.")
+            raise AlreadyFinalized(AlreadyFinalized_MESSAGE)
         return HMAC(
             self._key,
             self.algorithm,
@@ -58,7 +60,7 @@ class HMAC(hashes.HashContext):
 
     def finalize(self) -> bytes:
         if self._ctx is None:
-            raise AlreadyFinalized("Context was already finalized.")
+            raise AlreadyFinalized(AlreadyFinalized_MESSAGE)
         digest = self._ctx.finalize()
         self._ctx = None
         return digest
@@ -66,7 +68,7 @@ class HMAC(hashes.HashContext):
     def verify(self, signature: bytes) -> None:
         utils._check_bytes("signature", signature)
         if self._ctx is None:
-            raise AlreadyFinalized("Context was already finalized.")
+            raise AlreadyFinalized(AlreadyFinalized_MESSAGE)
 
         ctx, self._ctx = self._ctx, None
         ctx.verify(signature)

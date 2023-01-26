@@ -16,6 +16,7 @@ from cryptography.exceptions import (
 from cryptography.hazmat.backends.interfaces import CipherBackend
 from cryptography.hazmat.primitives.ciphers import modes
 
+AlreadyFinalized_MESSAGE = "Context was already finalized."
 
 @six.add_metaclass(abc.ABCMeta)
 class CipherAlgorithm(object):
@@ -145,17 +146,17 @@ class _CipherContext(object):
 
     def update(self, data):
         if self._ctx is None:
-            raise AlreadyFinalized("Context was already finalized.")
+            raise AlreadyFinalized(AlreadyFinalized_MESSAGE)
         return self._ctx.update(data)
 
     def update_into(self, data, buf):
         if self._ctx is None:
-            raise AlreadyFinalized("Context was already finalized.")
+            raise AlreadyFinalized(AlreadyFinalized_MESSAGE)
         return self._ctx.update_into(data, buf)
 
     def finalize(self):
         if self._ctx is None:
-            raise AlreadyFinalized("Context was already finalized.")
+            raise AlreadyFinalized(AlreadyFinalized_MESSAGE)
         data = self._ctx.finalize()
         self._ctx = None
         return data
@@ -174,7 +175,7 @@ class _AEADCipherContext(object):
 
     def _check_limit(self, data_size):
         if self._ctx is None:
-            raise AlreadyFinalized("Context was already finalized.")
+            raise AlreadyFinalized(AlreadyFinalized_MESSAGE)
         self._updated = True
         self._bytes_processed += data_size
         if self._bytes_processed > self._ctx._mode._MAX_ENCRYPTED_BYTES:
@@ -194,7 +195,7 @@ class _AEADCipherContext(object):
 
     def finalize(self):
         if self._ctx is None:
-            raise AlreadyFinalized("Context was already finalized.")
+            raise AlreadyFinalized(AlreadyFinalized_MESSAGE)
         data = self._ctx.finalize()
         self._tag = self._ctx.tag
         self._ctx = None
@@ -202,7 +203,7 @@ class _AEADCipherContext(object):
 
     def finalize_with_tag(self, tag):
         if self._ctx is None:
-            raise AlreadyFinalized("Context was already finalized.")
+            raise AlreadyFinalized(AlreadyFinalized_MESSAGE)
         data = self._ctx.finalize_with_tag(tag)
         self._tag = self._ctx.tag
         self._ctx = None
@@ -210,7 +211,7 @@ class _AEADCipherContext(object):
 
     def authenticate_additional_data(self, data):
         if self._ctx is None:
-            raise AlreadyFinalized("Context was already finalized.")
+            raise AlreadyFinalized(AlreadyFinalized_MESSAGE)
         if self._updated:
             raise AlreadyUpdated("Update has been called on this context.")
 

@@ -47,6 +47,14 @@ _r_int_dotdotdot = re.compile(r"(\b(int|long|short|signed|unsigned|char)\s*)+"
                               r"\.\.\.")
 _r_float_dotdotdot = re.compile(r"\b(double|float)\s*\.\.\.")
 
+
+# A pedido de SONAR
+
+TYPEDEF = 'typedef'
+
+
+
+
 def _get_parser():
     global _parser_cache
     if _parser_cache is None:
@@ -263,7 +271,7 @@ def _common_type_names(csource):
     look_for_words.add(',')
     look_for_words.add('(')
     look_for_words.add(')')
-    look_for_words.add('typedef')
+    look_for_words.add(TYPEDEF)
     words_used = set()
     is_typedef = False
     paren = 0
@@ -275,7 +283,7 @@ def _common_type_names(csource):
                     words_used.discard(previous_word)
                     look_for_words.discard(previous_word)
                     is_typedef = False
-            elif word == 'typedef':
+            elif word == TYPEDEF:
                 is_typedef = True
                 paren = 0
             elif word == '(':
@@ -975,7 +983,7 @@ class Parser(object):
             if name.startswith('anonymous $enum_$'):
                 continue   # fix for test_anonymous_enum_include
             kind = name.split(' ', 1)[0]
-            if kind in ('struct', 'union', 'enum', 'anonymous', 'typedef'):
+            if kind in ('struct', 'union', 'enum', 'anonymous', TYPEDEF):
                 self._declare(name, tp, included=True, quals=quals)
         for k, v in other._int_constants.items():
             self._add_constants(k, v)

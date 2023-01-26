@@ -16,6 +16,8 @@ import nacl.exceptions as exc
 from nacl._sodium import ffi, lib
 from nacl.exceptions import ensure
 
+UNSIGNED_CHAR_STR = "unsigned char []"
+
 
 def sodium_memcmp(inp1: bytes, inp2: bytes) -> bool:
     """
@@ -56,7 +58,7 @@ def sodium_pad(s: bytes, blocksize: int) -> bytes:
         raise exc.ValueError
     s_len = len(s)
     m_len = s_len + blocksize
-    buf = ffi.new("unsigned char []", m_len)
+    buf = ffi.new(UNSIGNED_CHAR_STR, m_len)
     p_len = ffi.new("size_t []", 1)
     ffi.memmove(buf, s, s_len)
     rc = lib.sodium_pad(p_len, buf, s_len, blocksize, m_len)
@@ -101,7 +103,7 @@ def sodium_increment(inp: bytes) -> bytes:
     ensure(isinstance(inp, bytes), raising=exc.TypeError)
 
     ln = len(inp)
-    buf = ffi.new("unsigned char []", ln)
+    buf = ffi.new(UNSIGNED_CHAR_STR, ln)
 
     ffi.memmove(buf, inp, ln)
 
@@ -130,8 +132,8 @@ def sodium_add(a: bytes, b: bytes) -> bytes:
     ln = len(a)
     ensure(len(b) == ln, raising=exc.TypeError)
 
-    buf_a = ffi.new("unsigned char []", ln)
-    buf_b = ffi.new("unsigned char []", ln)
+    buf_a = ffi.new(UNSIGNED_CHAR_STR, ln)
+    buf_b = ffi.new(UNSIGNED_CHAR_STR, ln)
 
     ffi.memmove(buf_a, a, ln)
     ffi.memmove(buf_b, b, ln)

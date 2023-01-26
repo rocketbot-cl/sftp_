@@ -37,6 +37,7 @@ from cryptography.x509.oid import ObjectIdentifier
 
 _EARLIEST_UTC_TIME = datetime.datetime(1950, 1, 1)
 
+EXPECTING_509_MESSAGE = "Expecting x509.Name object."
 
 class AttributeNotFound(Exception):
     def __init__(self, msg: str, oid: ObjectIdentifier) -> None:
@@ -560,14 +561,18 @@ class CertificateSigningRequestBuilder:
     def __init__(
         self,
         subject_name: typing.Optional[Name] = None,
-        extensions: typing.List[Extension[ExtensionType]] = [],
+        extensions: typing.List[Extension[ExtensionType]] = None,
         attributes: typing.List[
             typing.Tuple[ObjectIdentifier, bytes, typing.Optional[int]]
-        ] = [],
+        ] = None,
     ):
         """
         Creates an empty X.509 certificate request (v1).
         """
+        if extensions is None:
+            extensions = []
+        if attributes is None:
+            attributes = []
         self._subject_name = subject_name
         self._extensions = extensions
         self._attributes = attributes
@@ -577,7 +582,7 @@ class CertificateSigningRequestBuilder:
         Sets the certificate requestor's distinguished name.
         """
         if not isinstance(name, Name):
-            raise TypeError("Expecting x509.Name object.")
+            raise TypeError(EXPECTING_509_MESSAGE)
         if self._subject_name is not None:
             raise ValueError("The subject name may only be set once.")
         return CertificateSigningRequestBuilder(
@@ -659,8 +664,10 @@ class CertificateBuilder:
         serial_number: typing.Optional[int] = None,
         not_valid_before: typing.Optional[datetime.datetime] = None,
         not_valid_after: typing.Optional[datetime.datetime] = None,
-        extensions: typing.List[Extension[ExtensionType]] = [],
+        extensions: typing.List[Extension[ExtensionType]] = None,
     ) -> None:
+        if extensions is None:
+            extensions = []
         self._version = Version.v3
         self._issuer_name = issuer_name
         self._subject_name = subject_name
@@ -675,7 +682,7 @@ class CertificateBuilder:
         Sets the CA's distinguished name.
         """
         if not isinstance(name, Name):
-            raise TypeError("Expecting x509.Name object.")
+            raise TypeError(EXPECTING_509_MESSAGE)
         if self._issuer_name is not None:
             raise ValueError("The issuer name may only be set once.")
         return CertificateBuilder(
@@ -693,7 +700,7 @@ class CertificateBuilder:
         Sets the requestor's distinguished name.
         """
         if not isinstance(name, Name):
-            raise TypeError("Expecting x509.Name object.")
+            raise TypeError(EXPECTING_509_MESSAGE)
         if self._subject_name is not None:
             raise ValueError("The subject name may only be set once.")
         return CertificateBuilder(
@@ -907,7 +914,7 @@ class CertificateRevocationListBuilder:
         self, issuer_name: Name
     ) -> "CertificateRevocationListBuilder":
         if not isinstance(issuer_name, Name):
-            raise TypeError("Expecting x509.Name object.")
+            raise TypeError(EXPECTING_509_MESSAGE)
         if self._issuer_name is not None:
             raise ValueError("The issuer name may only be set once.")
         return CertificateRevocationListBuilder(

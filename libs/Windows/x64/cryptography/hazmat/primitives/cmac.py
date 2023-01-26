@@ -14,6 +14,7 @@ from cryptography.hazmat.primitives import ciphers
 if typing.TYPE_CHECKING:
     from cryptography.hazmat.backends.openssl.cmac import _CMACContext
 
+AlreadyFinalized_MESSAGE = "Context was already finalized."
 
 class CMAC:
     _ctx: typing.Optional["_CMACContext"]
@@ -40,14 +41,14 @@ class CMAC:
 
     def update(self, data: bytes) -> None:
         if self._ctx is None:
-            raise AlreadyFinalized("Context was already finalized.")
+            raise AlreadyFinalized(AlreadyFinalized_MESSAGE)
 
         utils._check_bytes("data", data)
         self._ctx.update(data)
 
     def finalize(self) -> bytes:
         if self._ctx is None:
-            raise AlreadyFinalized("Context was already finalized.")
+            raise AlreadyFinalized(AlreadyFinalized_MESSAGE)
         digest = self._ctx.finalize()
         self._ctx = None
         return digest
@@ -55,12 +56,12 @@ class CMAC:
     def verify(self, signature: bytes) -> None:
         utils._check_bytes("signature", signature)
         if self._ctx is None:
-            raise AlreadyFinalized("Context was already finalized.")
+            raise AlreadyFinalized(AlreadyFinalized_MESSAGE)
 
         ctx, self._ctx = self._ctx, None
         ctx.verify(signature)
 
     def copy(self) -> "CMAC":
         if self._ctx is None:
-            raise AlreadyFinalized("Context was already finalized.")
+            raise AlreadyFinalized(AlreadyFinalized_MESSAGE)
         return CMAC(self._algorithm, ctx=self._ctx.copy())

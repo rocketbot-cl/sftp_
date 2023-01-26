@@ -10,6 +10,9 @@ from cryptography import exceptions, utils
 from cryptography.hazmat.backends.openssl import aead
 from cryptography.hazmat.backends.openssl.backend import backend
 
+BIT_LENGTH_STR = "bit_length must be an integer"
+BIT_LENGTH_STR2 = "bit_length must be 128, 192, or 256"
+
 
 class ChaCha20Poly1305:
     _MAX_SIZE = 2**31 - 1
@@ -100,10 +103,10 @@ class AESCCM:
     @classmethod
     def generate_key(cls, bit_length: int) -> bytes:
         if not isinstance(bit_length, int):
-            raise TypeError("bit_length must be an integer")
+            raise TypeError(BIT_LENGTH_STR)
 
         if bit_length not in (128, 192, 256):
-            raise ValueError("bit_length must be 128, 192, or 256")
+            raise ValueError(BIT_LENGTH_STR2)
 
         return os.urandom(bit_length // 8)
 
@@ -172,10 +175,10 @@ class AESGCM:
     @classmethod
     def generate_key(cls, bit_length: int) -> bytes:
         if not isinstance(bit_length, int):
-            raise TypeError("bit_length must be an integer")
+            raise TypeError(BIT_LENGTH_STR)
 
         if bit_length not in (128, 192, 256):
-            raise ValueError("bit_length must be 128, 192, or 256")
+            raise ValueError(BIT_LENGTH_STR2)
 
         return os.urandom(bit_length // 8)
 
@@ -241,10 +244,10 @@ class AESOCB3:
     @classmethod
     def generate_key(cls, bit_length: int) -> bytes:
         if not isinstance(bit_length, int):
-            raise TypeError("bit_length must be an integer")
+            raise TypeError(BIT_LENGTH_STR)
 
         if bit_length not in (128, 192, 256):
-            raise ValueError("bit_length must be 128, 192, or 256")
+            raise ValueError(BIT_LENGTH_STR2)
 
         return os.urandom(bit_length // 8)
 
@@ -310,7 +313,7 @@ class AESSIV(object):
     @classmethod
     def generate_key(cls, bit_length: int) -> bytes:
         if not isinstance(bit_length, int):
-            raise TypeError("bit_length must be an integer")
+            raise TypeError(BIT_LENGTH_STR)
 
         if bit_length not in (256, 384, 512):
             raise ValueError("bit_length must be 256, 384, or 512")

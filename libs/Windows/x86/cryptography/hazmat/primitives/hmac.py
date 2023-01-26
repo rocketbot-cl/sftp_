@@ -11,6 +11,7 @@ from cryptography.exceptions import (
 from cryptography.hazmat.backends.interfaces import HMACBackend
 from cryptography.hazmat.primitives import hashes
 
+AlreadyFinalized_MESSAGE = "Context was already finalized."
 
 @utils.register_interface(hashes.HashContext)
 class HMAC(object):
@@ -36,13 +37,13 @@ class HMAC(object):
 
     def update(self, data):
         if self._ctx is None:
-            raise AlreadyFinalized("Context was already finalized.")
+            raise AlreadyFinalized(AlreadyFinalized_MESSAGE)
         utils._check_byteslike("data", data)
         self._ctx.update(data)
 
     def copy(self):
         if self._ctx is None:
-            raise AlreadyFinalized("Context was already finalized.")
+            raise AlreadyFinalized(AlreadyFinalized_MESSAGE)
         return HMAC(
             self._key,
             self.algorithm,
@@ -52,7 +53,7 @@ class HMAC(object):
 
     def finalize(self):
         if self._ctx is None:
-            raise AlreadyFinalized("Context was already finalized.")
+            raise AlreadyFinalized(AlreadyFinalized_MESSAGE)
         digest = self._ctx.finalize()
         self._ctx = None
         return digest
@@ -60,7 +61,7 @@ class HMAC(object):
     def verify(self, signature):
         utils._check_bytes("signature", signature)
         if self._ctx is None:
-            raise AlreadyFinalized("Context was already finalized.")
+            raise AlreadyFinalized(AlreadyFinalized_MESSAGE)
 
         ctx, self._ctx = self._ctx, None
         ctx.verify(signature)

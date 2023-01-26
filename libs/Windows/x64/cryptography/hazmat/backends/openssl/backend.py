@@ -126,6 +126,7 @@ from cryptography.hazmat.primitives.serialization.pkcs12 import (
 
 _MemoryBIO = collections.namedtuple("_MemoryBIO", ["bio", "char_ptr"])
 
+UNSIGNED_CHAR_STR = "unsigned char[]"
 
 # Not actually supported, just used as a marker for some serialization tests.
 class _RC2:
@@ -453,7 +454,7 @@ class Backend:
         iterations: int,
         key_material: bytes,
     ) -> bytes:
-        buf = self._ffi.new("unsigned char[]", length)
+        buf = self._ffi.new(UNSIGNED_CHAR_STR, length)
         evp_md = self._evp_md_non_null_from_algorithm(algorithm)
         key_material_ptr = self._ffi.from_buffer(key_material)
         res = self._lib.PKCS5_PBKDF2_HMAC(
@@ -482,7 +483,7 @@ class Backend:
         self.openssl_assert(not self._lib.BN_is_negative(bn))
 
         bn_num_bytes = self._lib.BN_num_bytes(bn)
-        bin_ptr = self._ffi.new("unsigned char[]", bn_num_bytes)
+        bin_ptr = self._ffi.new(UNSIGNED_CHAR_STR, bn_num_bytes)
         bin_len = self._lib.BN_bn2bin(bn, bin_ptr)
         # A zero length means the BN has value 0
         self.openssl_assert(bin_len >= 0)
@@ -2073,7 +2074,7 @@ class Backend:
         r: int,
         p: int,
     ) -> bytes:
-        buf = self._ffi.new("unsigned char[]", length)
+        buf = self._ffi.new(UNSIGNED_CHAR_STR, length)
         key_material_ptr = self._ffi.from_buffer(key_material)
         res = self._lib.EVP_PBE_scrypt(
             key_material_ptr,

@@ -39,6 +39,10 @@ from cryptography.hazmat.primitives.asymmetric.rsa import (
 if typing.TYPE_CHECKING:
     from cryptography.hazmat.backends.openssl.backend import Backend
 
+SIZE_T_STR = "size_t *"
+UNSIGNED_CHAR_STR = "unsigned char[]"
+BIGNUM_STR = "BIGNUM **"
+
 
 def _get_rsa_pss_salt_length(
     backend: "Backend",
@@ -148,8 +152,8 @@ def _enc_dec_rsa_pkey_ctx(
         )
         backend.openssl_assert(res == 1)
 
-    outlen = backend._ffi.new("size_t *", buf_size)
-    buf = backend._ffi.new("unsigned char[]", buf_size)
+    outlen = backend._ffi.new(SIZE_T_STR, buf_size)
+    buf = backend._ffi.new(UNSIGNED_CHAR_STR, buf_size)
     # Everything from this line onwards is written with the goal of being as
     # constant-time as is practical given the constraints of Python and our
     # API. See Bleichenbacher's '98 attack on RSA, and its many many variants.
@@ -280,12 +284,12 @@ def _rsa_sig_sign(
         private_key,
         backend._lib.EVP_PKEY_sign_init,
     )
-    buflen = backend._ffi.new("size_t *")
+    buflen = backend._ffi.new(SIZE_T_STR)
     res = backend._lib.EVP_PKEY_sign(
         pkey_ctx, backend._ffi.NULL, buflen, data, len(data)
     )
     backend.openssl_assert(res == 1)
-    buf = backend._ffi.new("unsigned char[]", buflen[0])
+    buf = backend._ffi.new(UNSIGNED_CHAR_STR, buflen[0])
     res = backend._lib.EVP_PKEY_sign(pkey_ctx, buf, buflen, data, len(data))
     if res != 1:
         errors = backend._consume_errors_with_text()
@@ -347,8 +351,8 @@ def _rsa_sig_recover(
     # trigger any exceptions.
     maxlen = backend._lib.EVP_PKEY_size(public_key._evp_pkey)
     backend.openssl_assert(maxlen > 0)
-    buf = backend._ffi.new("unsigned char[]", maxlen)
-    buflen = backend._ffi.new("size_t *", maxlen)
+    buf = backend._ffi.new(UNSIGNED_CHAR_STR, maxlen)
+    buflen = backend._ffi.new(SIZE_T_STR, maxlen)
     res = backend._lib.EVP_PKEY_verify_recover(
         pkey_ctx, buf, buflen, signature, len(signature)
     )
@@ -382,8 +386,8 @@ class _RSAPrivateKey(RSAPrivateKey):
                 raise ValueError("Invalid private key", errors)
             # 2 is prime and passes an RSA key check, so we also check
             # if p and q are odd just to be safe.
-            p = backend._ffi.new("BIGNUM **")
-            q = backend._ffi.new("BIGNUM **")
+            p = backend._ffi.new(BIGNUM_STR)
+            q = backend._ffi.new(BIGNUM_STR)
             backend._lib.RSA_get0_factors(rsa_cdata, p, q)
             backend.openssl_assert(p[0] != backend._ffi.NULL)
             backend.openssl_assert(q[0] != backend._ffi.NULL)
@@ -400,7 +404,7 @@ class _RSAPrivateKey(RSAPrivateKey):
         self._blinded = False
         self._blinding_lock = threading.Lock()
 
-        n = self._backend._ffi.new("BIGNUM **")
+        n = self._backend._ffi.new(BIGNUM_STR)
         self._backend._lib.RSA_get0_key(
             self._rsa_cdata,
             n,
@@ -449,14 +453,14 @@ class _RSAPrivateKey(RSAPrivateKey):
         return _RSAPublicKey(self._backend, ctx, evp_pkey)
 
     def private_numbers(self) -> RSAPrivateNumbers:
-        n = self._backend._ffi.new("BIGNUM **")
-        e = self._backend._ffi.new("BIGNUM **")
-        d = self._backend._ffi.new("BIGNUM **")
-        p = self._backend._ffi.new("BIGNUM **")
-        q = self._backend._ffi.new("BIGNUM **")
-        dmp1 = self._backend._ffi.new("BIGNUM **")
-        dmq1 = self._backend._ffi.new("BIGNUM **")
-        iqmp = self._backend._ffi.new("BIGNUM **")
+        n = self._backend._ffi.new(BIGNUM_STR)
+        e = self._backend._ffi.new(BIGNUM_STR)
+        d = self._backend._ffi.new(BIGNUM_STR)
+        p = self._backend._ffi.new(BIGNUM_STR)
+        q = self._backend._ffi.new(BIGNUM_STR)
+        dmp1 = self._backend._ffi.new(BIGNUM_STR)
+        dmq1 = self._backend._ffi.new(BIGNUM_STR)
+        iqmp = self._backend._ffi.new(BIGNUM_STR)
         self._backend._lib.RSA_get0_key(self._rsa_cdata, n, e, d)
         self._backend.openssl_assert(n[0] != self._backend._ffi.NULL)
         self._backend.openssl_assert(e[0] != self._backend._ffi.NULL)
@@ -519,7 +523,7 @@ class _RSAPublicKey(RSAPublicKey):
         self._rsa_cdata = rsa_cdata
         self._evp_pkey = evp_pkey
 
-        n = self._backend._ffi.new("BIGNUM **")
+        n = self._backend._ffi.new(BIGNUM_STR)
         self._backend._lib.RSA_get0_key(
             self._rsa_cdata,
             n,
@@ -537,8 +541,8 @@ class _RSAPublicKey(RSAPublicKey):
         return _enc_dec_rsa(self._backend, self, plaintext, padding)
 
     def public_numbers(self) -> RSAPublicNumbers:
-        n = self._backend._ffi.new("BIGNUM **")
-        e = self._backend._ffi.new("BIGNUM **")
+        n = self._backend._ffi.new(BIGNUM_STR)
+        e = self._backend._ffi.new(BIGNUM_STR)
         self._backend._lib.RSA_get0_key(
             self._rsa_cdata, n, e, self._backend._ffi.NULL
         )

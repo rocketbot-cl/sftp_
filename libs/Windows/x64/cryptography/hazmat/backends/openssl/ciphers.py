@@ -12,6 +12,7 @@ from cryptography.hazmat.primitives.ciphers import algorithms, modes
 if typing.TYPE_CHECKING:
     from cryptography.hazmat.backends.openssl.backend import Backend
 
+INT_STR = "int *"
 
 class _CipherContext:
     _ENCRYPT = 1
@@ -156,7 +157,7 @@ class _CipherContext:
 
         data_processed = 0
         total_out = 0
-        outlen = self._backend._ffi.new("int *")
+        outlen = self._backend._ffi.new(INT_STR)
         baseoutbuf = self._backend._ffi.from_buffer(buf)
         baseinbuf = self._backend._ffi.from_buffer(data)
 
@@ -192,7 +193,7 @@ class _CipherContext:
             )
 
         buf = self._backend._ffi.new("unsigned char[]", self._block_size_bytes)
-        outlen = self._backend._ffi.new("int *")
+        outlen = self._backend._ffi.new(INT_STR)
         res = self._backend._lib.EVP_CipherFinal_ex(self._ctx, buf, outlen)
         if res == 0:
             errors = self._backend._consume_errors()
@@ -267,7 +268,7 @@ class _CipherContext:
         return self.finalize()
 
     def authenticate_additional_data(self, data: bytes) -> None:
-        outlen = self._backend._ffi.new("int *")
+        outlen = self._backend._ffi.new(INT_STR)
         res = self._backend._lib.EVP_CipherUpdate(
             self._ctx,
             self._backend._ffi.NULL,
