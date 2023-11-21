@@ -1,14 +1,15 @@
 # SFTP
   
-Conectar e administrar um SFTP 
+Conecte e gerencie um SFTP  
 
-*Read this in other languages: [English](Manual_sftp.md), [Portugues](Manual_sftp.pr.md), [Español](Manual_sftp.es.md).*
+*Read this in other languages: [English](Manual_sftp_.md), [Português](Manual_sftp_.pr.md), [Español](Manual_sftp_.es.md)*
   
 ![banner](imgs/Banner_sftp_.png)
 ## Como instalar este módulo
   
-__Baixe__ e __instale__ o conteúdo na pasta 'modules' no caminho do Rocketbot  
-
+Para instalar o módulo no Rocketbot Studio, pode ser feito de duas formas:
+1. Manual: __Baixe__ o arquivo .zip e descompacte-o na pasta módulos. O nome da pasta deve ser o mesmo do módulo e dentro dela devem ter os seguintes arquivos e pastas: \__init__.py, package.json, docs, example e libs. Se você tiver o aplicativo aberto, atualize seu navegador para poder usar o novo módulo.
+2. Automático: Ao entrar no Rocketbot Studio na margem direita você encontrará a seção **Addons**, selecione **Install Mods**, procure o módulo desejado e aperte instalar.  
 
 
 ## Descrição do comando
@@ -41,6 +42,15 @@ Carrega o arquivo para o diretório atual
 | --- | --- | --- |
 |Arquivo para carregar|Selecione o arquivo para carregar|C:/Users/Usuário/Desktop/test.png|
 |Nome do diretório|Nome do diretório onde o arquivo será carregado|/home/ftp/uploads|
+|Atribuir resultado a variável|Atribui o resultado da operação a uma variável|Variável|
+
+### Carregar pasta
+  
+Carrega a pasta para o diretório atual
+|Parâmetros|Descrição|exemplo|
+| --- | --- | --- |
+|Pasta para carregar|Selecione a pasta para carregar|C:/Users/Usuário/Desktop/test|
+|Nome do diretório|Nome do diretório onde a pasta será carregada|/home/ftp/uploads|
 |Atribuir resultado a variável|Atribui o resultado da operação a uma variável|Variável|
 
 ### Renomear arquivo
@@ -78,8 +88,8 @@ Lista os arquivos contidos em uma pasta
 |Salvar arquivos listados na variável|Nome da variável onde os arquivos listados serão salvos|Variável|
 
 ### Fechar conexão
-
+  
 Fecha a conexão com o servidor
 |Parâmetros|Descrição|exemplo|
 | --- | --- | --- |
-|Salvar resultado da desconexão:|Variável onde o resultado da desconexão será salvo|Variável|
+|Salvar resultado da desconexão|Variável onde o resultado da desconexão será salvo|Variável|

@@ -47,6 +47,43 @@ except Exception as e:
     print("Error: No se pudo importar pysftp")
     raise e
 
+global mod_put_r_sftp
+def mod_put_r_sftp(localdir, remotedir, preserve_mtime=False, first=False):
+    """
+    Recursively transfer files and directories from localdir to remotedir on an SFTP server.
+
+    Parameters:
+        localdir (str): Local directory path.
+        remotedir (str): Remote directory path on the SFTP server.
+        preserve_mtime (bool, optional): Preserve the modification time of files. Default is False.
+        first (bool, optional): Flag to indicate if this is the first recursion. Default is False.
+    """
+
+    # get the last folder from localdir and put it on remotedir only the first time of the recursion
+    if first:
+        folder_name = os.path.basename(localdir)
+        remotedir = remotedir + "/" + folder_name
+        try:
+            pconn.mkdir(remotedir)
+        except IOError:
+            pass
+
+    pconn.chdir(remotedir)
+
+    for entry in os.listdir(localdir):
+        localpath = os.path.join(localdir, entry)
+        remotepath = remotedir + "/" + entry
+
+        if os.path.isdir(localpath):
+            try:
+                pconn.mkdir(remotepath)
+            except IOError:
+                pass
+
+            mod_put_r_sftp(localpath, remotepath, preserve_mtime)
+        else:
+            pconn.put(localpath, remotepath, preserve_mtime=preserve_mtime)
+
 """
     Obtengo el modulo que fue invocado
 """
@@ -148,6 +185,28 @@ try:
             res = False
 
         SetVar(var_, res)
+
+    if module == "upload_folder":
+            
+        folder_ = GetParams("folder_")
+        dir_ = GetParams("dir_")
+        var_ = GetParams("var_")
+
+        try:
+            if not dir_:
+                current = pconn.chdir('.')
+                current = pconn.getcwd()
+                dir_ = current
+
+            mod_put_r_sftp(folder_, dir_, preserve_mtime=False, first=True)
+            
+            SetVar(var_, True)
+
+        except Exception as e:
+            traceback.print_exc()
+            SetVar(var_, False)
+            raise e
+
 
     if module == "download_":
 
