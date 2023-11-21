@@ -23,7 +23,7 @@ Connect to SFTP
 |Port|Server port|22|
 |User|Sftp user|user@test.com|
 |Password|Sftp password|******|
-|.pem File Parh|.pem file path for SFTP connection|.C:/Users/User/file.pem|
+|.pem File Path|.pem file path for SFTP connection|.C:/Users/User/file.pem|
 |Server's operative system|Server's SFTP operative system||
 |Assign result to variable|Variable where the result of the connection will be stored|Variable|
 

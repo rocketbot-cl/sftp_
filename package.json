@@ -142,7 +142,7 @@
                         },
                         "title": {
                             "es": "Ruta al Archivo .pem:",
-                            "en": ".pem File Parh:",
+                            "en": ".pem File Path:",
                             "pr": "Caminho do arquivo .pem:"
                         },
                         "description": {
