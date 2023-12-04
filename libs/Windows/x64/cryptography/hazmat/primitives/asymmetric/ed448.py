@@ -8,6 +8,8 @@ import abc
 from cryptography.exceptions import UnsupportedAlgorithm, _Reasons
 from cryptography.hazmat.primitives import _serialization
 
+UnsupportedAlgorithm_STR = "ed448 is not supported by this version of OpenSSL."
+
 
 class Ed448PublicKey(metaclass=abc.ABCMeta):
     @classmethod
@@ -16,7 +18,7 @@ class Ed448PublicKey(metaclass=abc.ABCMeta):
 
         if not backend.ed448_supported():
             raise UnsupportedAlgorithm(
-                "ed448 is not supported by this version of OpenSSL.",
+                UnsupportedAlgorithm_STR,
                 _Reasons.UNSUPPORTED_PUBLIC_KEY_ALGORITHM,
             )
 
@@ -46,7 +48,7 @@ class Ed448PrivateKey(metaclass=abc.ABCMeta):
 
         if not backend.ed448_supported():
             raise UnsupportedAlgorithm(
-                "ed448 is not supported by this version of OpenSSL.",
+                UnsupportedAlgorithm_STR,
                 _Reasons.UNSUPPORTED_PUBLIC_KEY_ALGORITHM,
             )
         return backend.ed448_generate_key()
@@ -57,7 +59,7 @@ class Ed448PrivateKey(metaclass=abc.ABCMeta):
 
         if not backend.ed448_supported():
             raise UnsupportedAlgorithm(
-                "ed448 is not supported by this version of OpenSSL.",
+                UnsupportedAlgorithm_STR,
                 _Reasons.UNSUPPORTED_PUBLIC_KEY_ALGORITHM,
             )
 

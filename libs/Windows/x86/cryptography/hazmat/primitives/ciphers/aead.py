@@ -10,7 +10,7 @@ from cryptography import exceptions, utils
 from cryptography.hazmat.backends.openssl import aead
 from cryptography.hazmat.backends.openssl.backend import backend
 
-
+OverflowError_STR = "Data or associated data too long. Max 2**32 bytes"
 class ChaCha20Poly1305(object):
     _MAX_SIZE = 2 ** 32
 
@@ -38,7 +38,7 @@ class ChaCha20Poly1305(object):
         if len(data) > self._MAX_SIZE or len(associated_data) > self._MAX_SIZE:
             # This is OverflowError to match what cffi would raise
             raise OverflowError(
-                "Data or associated data too long. Max 2**32 bytes"
+                OverflowError_STR
             )
 
         self._check_params(nonce, data, associated_data)
@@ -103,7 +103,7 @@ class AESCCM(object):
         if len(data) > self._MAX_SIZE or len(associated_data) > self._MAX_SIZE:
             # This is OverflowError to match what cffi would raise
             raise OverflowError(
-                "Data or associated data too long. Max 2**32 bytes"
+                OverflowError_STR
             )
 
         self._check_params(nonce, data, associated_data)
@@ -163,7 +163,7 @@ class AESGCM(object):
         if len(data) > self._MAX_SIZE or len(associated_data) > self._MAX_SIZE:
             # This is OverflowError to match what cffi would raise
             raise OverflowError(
-                "Data or associated data too long. Max 2**32 bytes"
+                OverflowError_STR
             )
 
         self._check_params(nonce, data, associated_data)

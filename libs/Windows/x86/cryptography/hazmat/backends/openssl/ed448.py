@@ -13,6 +13,9 @@ from cryptography.hazmat.primitives.asymmetric.ed448 import (
 _ED448_KEY_SIZE = 57
 _ED448_SIG_SIZE = 114
 
+SIZE_T_STR = "size_t *"
+UNSIGNED_CHAR_STR = "unsigned char []"
+
 
 @utils.register_interface(Ed448PublicKey)
 class _Ed448PublicKey(object):
@@ -49,8 +52,8 @@ class _Ed448PublicKey(object):
         )
 
     def _raw_public_bytes(self):
-        buf = self._backend._ffi.new("unsigned char []", _ED448_KEY_SIZE)
-        buflen = self._backend._ffi.new("size_t *", _ED448_KEY_SIZE)
+        buf = self._backend._ffi.new(UNSIGNED_CHAR_STR, _ED448_KEY_SIZE)
+        buflen = self._backend._ffi.new(SIZE_T_STR, _ED448_KEY_SIZE)
         res = self._backend._lib.EVP_PKEY_get_raw_public_key(
             self._evp_pkey, buf, buflen
         )
@@ -84,8 +87,8 @@ class _Ed448PrivateKey(object):
         self._evp_pkey = evp_pkey
 
     def public_key(self):
-        buf = self._backend._ffi.new("unsigned char []", _ED448_KEY_SIZE)
-        buflen = self._backend._ffi.new("size_t *", _ED448_KEY_SIZE)
+        buf = self._backend._ffi.new(UNSIGNED_CHAR_STR, _ED448_KEY_SIZE)
+        buflen = self._backend._ffi.new(SIZE_T_STR, _ED448_KEY_SIZE)
         res = self._backend._lib.EVP_PKEY_get_raw_public_key(
             self._evp_pkey, buf, buflen
         )
@@ -106,7 +109,7 @@ class _Ed448PrivateKey(object):
         )
         self._backend.openssl_assert(res == 1)
         buf = self._backend._ffi.new("unsigned char[]", _ED448_SIG_SIZE)
-        buflen = self._backend._ffi.new("size_t *", len(buf))
+        buflen = self._backend._ffi.new(SIZE_T_STR, len(buf))
         res = self._backend._lib.EVP_DigestSign(
             evp_md_ctx, buf, buflen, data, len(data)
         )
@@ -144,8 +147,8 @@ class _Ed448PrivateKey(object):
         )
 
     def _raw_private_bytes(self):
-        buf = self._backend._ffi.new("unsigned char []", _ED448_KEY_SIZE)
-        buflen = self._backend._ffi.new("size_t *", _ED448_KEY_SIZE)
+        buf = self._backend._ffi.new(UNSIGNED_CHAR_STR, _ED448_KEY_SIZE)
+        buflen = self._backend._ffi.new(SIZE_T_STR, _ED448_KEY_SIZE)
         res = self._backend._lib.EVP_PKEY_get_raw_private_key(
             self._evp_pkey, buf, buflen
         )

@@ -13,6 +13,11 @@ if typing.TYPE_CHECKING:
     from cryptography.hazmat.backends.openssl.backend import Backend
 
 
+#SONAR
+BIGNUM_STR = "BIGNUM **"
+SERIALIZATION_EXEPTION_STR = "DH X9.42 serialization is not supported"
+
+
 def _dh_params_dup(dh_cdata, backend: "Backend"):
     lib = backend._lib
     ffi = backend._ffi
@@ -22,7 +27,7 @@ def _dh_params_dup(dh_cdata, backend: "Backend"):
     param_cdata = ffi.gc(param_cdata, lib.DH_free)
     if lib.CRYPTOGRAPHY_IS_LIBRESSL:
         # In libressl DHparams_dup don't copy q
-        q = ffi.new("BIGNUM **")
+        q = ffi.new(BIGNUM_STR)
         lib.DH_get0_pqg(dh_cdata, ffi.NULL, q, ffi.NULL)
         q_dup = lib.BN_dup(q[0])
         res = lib.DH_set0_pqg(param_cdata, ffi.NULL, q_dup, ffi.NULL)
@@ -42,9 +47,9 @@ class _DHParameters(dh.DHParameters):
         self._dh_cdata = dh_cdata
 
     def parameter_numbers(self) -> dh.DHParameterNumbers:
-        p = self._backend._ffi.new("BIGNUM **")
-        g = self._backend._ffi.new("BIGNUM **")
-        q = self._backend._ffi.new("BIGNUM **")
+        p = self._backend._ffi.new(BIGNUM_STR)
+        g = self._backend._ffi.new(BIGNUM_STR)
+        q = self._backend._ffi.new(BIGNUM_STR)
         self._backend._lib.DH_get0_pqg(self._dh_cdata, p, q, g)
         self._backend.openssl_assert(p[0] != self._backend._ffi.NULL)
         self._backend.openssl_assert(g[0] != self._backend._ffi.NULL)
@@ -73,7 +78,7 @@ class _DHParameters(dh.DHParameters):
         if format is not serialization.ParameterFormat.PKCS3:
             raise ValueError("Only PKCS3 serialization is supported")
 
-        q = self._backend._ffi.new("BIGNUM **")
+        q = self._backend._ffi.new(BIGNUM_STR)
         self._backend._lib.DH_get0_pqg(
             self._dh_cdata, self._backend._ffi.NULL, q, self._backend._ffi.NULL
         )
@@ -82,7 +87,7 @@ class _DHParameters(dh.DHParameters):
             and not self._backend._lib.Cryptography_HAS_EVP_PKEY_DHX
         ):
             raise UnsupportedAlgorithm(
-                "DH X9.42 serialization is not supported",
+                SERIALIZATION_EXEPTION_STR,
                 _Reasons.UNSUPPORTED_SERIALIZATION,
             )
 
@@ -106,7 +111,7 @@ class _DHParameters(dh.DHParameters):
 
 
 def _get_dh_num_bits(backend, dh_cdata) -> int:
-    p = backend._ffi.new("BIGNUM **")
+    p = backend._ffi.new(BIGNUM_STR)
     backend._lib.DH_get0_pqg(dh_cdata, p, backend._ffi.NULL, backend._ffi.NULL)
     backend.openssl_assert(p[0] != backend._ffi.NULL)
     return backend._lib.BN_num_bits(p[0])
@@ -124,9 +129,9 @@ class _DHPrivateKey(dh.DHPrivateKey):
         return _get_dh_num_bits(self._backend, self._dh_cdata)
 
     def private_numbers(self) -> dh.DHPrivateNumbers:
-        p = self._backend._ffi.new("BIGNUM **")
-        g = self._backend._ffi.new("BIGNUM **")
-        q = self._backend._ffi.new("BIGNUM **")
+        p = self._backend._ffi.new(BIGNUM_STR)
+        g = self._backend._ffi.new(BIGNUM_STR)
+        q = self._backend._ffi.new(BIGNUM_STR)
         self._backend._lib.DH_get0_pqg(self._dh_cdata, p, q, g)
         self._backend.openssl_assert(p[0] != self._backend._ffi.NULL)
         self._backend.openssl_assert(g[0] != self._backend._ffi.NULL)
@@ -134,8 +139,8 @@ class _DHPrivateKey(dh.DHPrivateKey):
             q_val = None
         else:
             q_val = self._backend._bn_to_int(q[0])
-        pub_key = self._backend._ffi.new("BIGNUM **")
-        priv_key = self._backend._ffi.new("BIGNUM **")
+        pub_key = self._backend._ffi.new(BIGNUM_STR)
+        priv_key = self._backend._ffi.new(BIGNUM_STR)
         self._backend._lib.DH_get0_key(self._dh_cdata, pub_key, priv_key)
         self._backend.openssl_assert(pub_key[0] != self._backend._ffi.NULL)
         self._backend.openssl_assert(priv_key[0] != self._backend._ffi.NULL)
@@ -197,7 +202,7 @@ class _DHPrivateKey(dh.DHPrivateKey):
 
     def public_key(self) -> dh.DHPublicKey:
         dh_cdata = _dh_params_dup(self._dh_cdata, self._backend)
-        pub_key = self._backend._ffi.new("BIGNUM **")
+        pub_key = self._backend._ffi.new(BIGNUM_STR)
         self._backend._lib.DH_get0_key(
             self._dh_cdata, pub_key, self._backend._ffi.NULL
         )
@@ -226,7 +231,7 @@ class _DHPrivateKey(dh.DHPrivateKey):
                 "DH private keys support only PKCS8 serialization"
             )
         if not self._backend._lib.Cryptography_HAS_EVP_PKEY_DHX:
-            q = self._backend._ffi.new("BIGNUM **")
+            q = self._backend._ffi.new(BIGNUM_STR)
             self._backend._lib.DH_get0_pqg(
                 self._dh_cdata,
                 self._backend._ffi.NULL,
@@ -235,7 +240,7 @@ class _DHPrivateKey(dh.DHPrivateKey):
             )
             if q[0] != self._backend._ffi.NULL:
                 raise UnsupportedAlgorithm(
-                    "DH X9.42 serialization is not supported",
+                    SERIALIZATION_EXEPTION_STR,
                     _Reasons.UNSUPPORTED_SERIALIZATION,
                 )
 
@@ -261,9 +266,9 @@ class _DHPublicKey(dh.DHPublicKey):
         return self._key_size_bits
 
     def public_numbers(self) -> dh.DHPublicNumbers:
-        p = self._backend._ffi.new("BIGNUM **")
-        g = self._backend._ffi.new("BIGNUM **")
-        q = self._backend._ffi.new("BIGNUM **")
+        p = self._backend._ffi.new(BIGNUM_STR)
+        g = self._backend._ffi.new(BIGNUM_STR)
+        q = self._backend._ffi.new(BIGNUM_STR)
         self._backend._lib.DH_get0_pqg(self._dh_cdata, p, q, g)
         self._backend.openssl_assert(p[0] != self._backend._ffi.NULL)
         self._backend.openssl_assert(g[0] != self._backend._ffi.NULL)
@@ -271,7 +276,7 @@ class _DHPublicKey(dh.DHPublicKey):
             q_val = None
         else:
             q_val = self._backend._bn_to_int(q[0])
-        pub_key = self._backend._ffi.new("BIGNUM **")
+        pub_key = self._backend._ffi.new(BIGNUM_STR)
         self._backend._lib.DH_get0_key(
             self._dh_cdata, pub_key, self._backend._ffi.NULL
         )
@@ -300,7 +305,7 @@ class _DHPublicKey(dh.DHPublicKey):
             )
 
         if not self._backend._lib.Cryptography_HAS_EVP_PKEY_DHX:
-            q = self._backend._ffi.new("BIGNUM **")
+            q = self._backend._ffi.new(BIGNUM_STR)
             self._backend._lib.DH_get0_pqg(
                 self._dh_cdata,
                 self._backend._ffi.NULL,
@@ -309,7 +314,7 @@ class _DHPublicKey(dh.DHPublicKey):
             )
             if q[0] != self._backend._ffi.NULL:
                 raise UnsupportedAlgorithm(
-                    "DH X9.42 serialization is not supported",
+                    SERIALIZATION_EXEPTION_STR,
                     _Reasons.UNSUPPORTED_SERIALIZATION,
                 )
 

@@ -64,9 +64,14 @@ class PKCS7SignatureBuilder:
                 _ALLOWED_PRIVATE_KEY_TYPES,
                 _ALLOWED_PKCS7_HASH_TYPES,
             ]
-        ] = [],
-        additional_certs: typing.List[x509.Certificate] = [],
+        ] = None,
+        additional_certs: typing.List[x509.Certificate] = None,
     ):
+        if signers is None:
+            signers = []
+        
+        if additional_certs is None:
+            additional_certs = []
         self._data = data
         self._signers = signers
         self._additional_certs = additional_certs

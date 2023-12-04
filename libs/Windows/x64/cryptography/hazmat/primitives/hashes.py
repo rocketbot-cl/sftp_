@@ -10,6 +10,7 @@ from cryptography.exceptions import (
     AlreadyFinalized,
 )
 
+AlreadyFinalized_MESSAGE = "Context was already finalized."
 
 class HashAlgorithm(metaclass=abc.ABCMeta):
     @abc.abstractproperty
@@ -92,18 +93,18 @@ class Hash(HashContext):
 
     def update(self, data: bytes) -> None:
         if self._ctx is None:
-            raise AlreadyFinalized("Context was already finalized.")
+            raise AlreadyFinalized(AlreadyFinalized_MESSAGE)
         utils._check_byteslike("data", data)
         self._ctx.update(data)
 
     def copy(self) -> "Hash":
         if self._ctx is None:
-            raise AlreadyFinalized("Context was already finalized.")
+            raise AlreadyFinalized(AlreadyFinalized_MESSAGE)
         return Hash(self.algorithm, ctx=self._ctx.copy())
 
     def finalize(self) -> bytes:
         if self._ctx is None:
-            raise AlreadyFinalized("Context was already finalized.")
+            raise AlreadyFinalized(AlreadyFinalized_MESSAGE)
         digest = self._ctx.finalize()
         self._ctx = None
         return digest

@@ -11,6 +11,7 @@ from cryptography.exceptions import (
 from cryptography.hazmat.backends.interfaces import CMACBackend
 from cryptography.hazmat.primitives import ciphers
 
+AlreadyFinalized_MESSAGE = "Context was already finalized."
 
 class CMAC(object):
     def __init__(self, algorithm, backend, ctx=None):
@@ -34,14 +35,14 @@ class CMAC(object):
 
     def update(self, data):
         if self._ctx is None:
-            raise AlreadyFinalized("Context was already finalized.")
+            raise AlreadyFinalized(AlreadyFinalized_MESSAGE)
 
         utils._check_bytes("data", data)
         self._ctx.update(data)
 
     def finalize(self):
         if self._ctx is None:
-            raise AlreadyFinalized("Context was already finalized.")
+            raise AlreadyFinalized(AlreadyFinalized_MESSAGE)
         digest = self._ctx.finalize()
         self._ctx = None
         return digest
@@ -49,14 +50,14 @@ class CMAC(object):
     def verify(self, signature):
         utils._check_bytes("signature", signature)
         if self._ctx is None:
-            raise AlreadyFinalized("Context was already finalized.")
+            raise AlreadyFinalized(AlreadyFinalized_MESSAGE)
 
         ctx, self._ctx = self._ctx, None
         ctx.verify(signature)
 
     def copy(self):
         if self._ctx is None:
-            raise AlreadyFinalized("Context was already finalized.")
+            raise AlreadyFinalized(AlreadyFinalized_MESSAGE)
         return CMAC(
             self._algorithm,
             backend=self._backend,

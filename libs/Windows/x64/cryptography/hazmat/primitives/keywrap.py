@@ -10,6 +10,8 @@ from cryptography.hazmat.primitives.ciphers.algorithms import AES
 from cryptography.hazmat.primitives.ciphers.modes import ECB
 from cryptography.hazmat.primitives.constant_time import bytes_eq
 
+VALID_AES_KEY_MESSAGE = "The wrapping key must be a valid AES key length"
+
 
 def _wrap_core(
     wrapping_key: bytes,
@@ -41,7 +43,7 @@ def aes_key_wrap(
     backend: typing.Any = None,
 ) -> bytes:
     if len(wrapping_key) not in [16, 24, 32]:
-        raise ValueError("The wrapping key must be a valid AES key length")
+        raise ValueError(VALID_AES_KEY_MESSAGE)
 
     if len(key_to_wrap) < 16:
         raise ValueError("The key to wrap must be at least 16 bytes")
@@ -83,7 +85,7 @@ def aes_key_wrap_with_padding(
     backend: typing.Any = None,
 ) -> bytes:
     if len(wrapping_key) not in [16, 24, 32]:
-        raise ValueError("The wrapping key must be a valid AES key length")
+        raise ValueError(VALID_AES_KEY_MESSAGE)
 
     aiv = b"\xA6\x59\x59\xA6" + len(key_to_wrap).to_bytes(
         length=4, byteorder="big"
@@ -111,7 +113,7 @@ def aes_key_unwrap_with_padding(
         raise InvalidUnwrap("Must be at least 16 bytes")
 
     if len(wrapping_key) not in [16, 24, 32]:
-        raise ValueError("The wrapping key must be a valid AES key length")
+        raise ValueError(VALID_AES_KEY_MESSAGE)
 
     if len(wrapped_key) == 16:
         # RFC 5649 - 4.2 - exactly two 64-bit blocks
@@ -160,7 +162,7 @@ def aes_key_unwrap(
         raise InvalidUnwrap("The wrapped key must be a multiple of 8 bytes")
 
     if len(wrapping_key) not in [16, 24, 32]:
-        raise ValueError("The wrapping key must be a valid AES key length")
+        raise ValueError(VALID_AES_KEY_MESSAGE)
 
     aiv = b"\xa6\xa6\xa6\xa6\xa6\xa6\xa6\xa6"
     r = [wrapped_key[i : i + 8] for i in range(0, len(wrapped_key), 8)]

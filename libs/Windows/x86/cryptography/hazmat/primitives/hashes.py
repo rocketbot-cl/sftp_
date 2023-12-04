@@ -14,6 +14,7 @@ from cryptography.exceptions import (
 )
 from cryptography.hazmat.backends.interfaces import HashBackend
 
+AlreadyFinalized_MESSAGE = "Context was already finalized."
 
 @six.add_metaclass(abc.ABCMeta)
 class HashAlgorithm(object):
@@ -88,20 +89,20 @@ class Hash(object):
 
     def update(self, data):
         if self._ctx is None:
-            raise AlreadyFinalized("Context was already finalized.")
+            raise AlreadyFinalized(AlreadyFinalized_MESSAGE)
         utils._check_byteslike("data", data)
         self._ctx.update(data)
 
     def copy(self):
         if self._ctx is None:
-            raise AlreadyFinalized("Context was already finalized.")
+            raise AlreadyFinalized(AlreadyFinalized_MESSAGE)
         return Hash(
             self.algorithm, backend=self._backend, ctx=self._ctx.copy()
         )
 
     def finalize(self):
         if self._ctx is None:
-            raise AlreadyFinalized("Context was already finalized.")
+            raise AlreadyFinalized(AlreadyFinalized_MESSAGE)
         digest = self._ctx.finalize()
         self._ctx = None
         return digest

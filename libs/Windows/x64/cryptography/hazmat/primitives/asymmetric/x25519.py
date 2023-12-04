@@ -8,6 +8,7 @@ import abc
 from cryptography.exceptions import UnsupportedAlgorithm, _Reasons
 from cryptography.hazmat.primitives import _serialization
 
+UnsupportedAlgorithm_STR = "X25519 is not supported by this version of OpenSSL."
 
 class X25519PublicKey(metaclass=abc.ABCMeta):
     @classmethod
@@ -16,7 +17,7 @@ class X25519PublicKey(metaclass=abc.ABCMeta):
 
         if not backend.x25519_supported():
             raise UnsupportedAlgorithm(
-                "X25519 is not supported by this version of OpenSSL.",
+                UnsupportedAlgorithm_STR,
                 _Reasons.UNSUPPORTED_EXCHANGE_ALGORITHM,
             )
 
@@ -40,7 +41,7 @@ class X25519PrivateKey(metaclass=abc.ABCMeta):
 
         if not backend.x25519_supported():
             raise UnsupportedAlgorithm(
-                "X25519 is not supported by this version of OpenSSL.",
+                UnsupportedAlgorithm_STR,
                 _Reasons.UNSUPPORTED_EXCHANGE_ALGORITHM,
             )
         return backend.x25519_generate_key()
@@ -51,7 +52,7 @@ class X25519PrivateKey(metaclass=abc.ABCMeta):
 
         if not backend.x25519_supported():
             raise UnsupportedAlgorithm(
-                "X25519 is not supported by this version of OpenSSL.",
+                UnsupportedAlgorithm_STR,
                 _Reasons.UNSUPPORTED_EXCHANGE_ALGORITHM,
             )
 

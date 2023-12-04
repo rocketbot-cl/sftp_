@@ -13,6 +13,7 @@ from cryptography.hazmat.bindings._rust import (
     check_pkcs7_padding,
 )
 
+AlreadyFinalized_MESSAGE = "Context was already finalized."
 
 class PaddingContext(metaclass=abc.ABCMeta):
     @abc.abstractmethod
@@ -40,7 +41,7 @@ def _byte_padding_update(
     buffer_: typing.Optional[bytes], data: bytes, block_size: int
 ) -> typing.Tuple[bytes, bytes]:
     if buffer_ is None:
-        raise AlreadyFinalized("Context was already finalized.")
+        raise AlreadyFinalized(AlreadyFinalized_MESSAGE)
 
     utils._check_byteslike("data", data)
 
@@ -60,7 +61,7 @@ def _byte_padding_pad(
     paddingfn: typing.Callable[[int], bytes],
 ) -> bytes:
     if buffer_ is None:
-        raise AlreadyFinalized("Context was already finalized.")
+        raise AlreadyFinalized(AlreadyFinalized_MESSAGE)
 
     pad_size = block_size // 8 - len(buffer_)
     return buffer_ + paddingfn(pad_size)
@@ -70,7 +71,7 @@ def _byte_unpadding_update(
     buffer_: typing.Optional[bytes], data: bytes, block_size: int
 ) -> typing.Tuple[bytes, bytes]:
     if buffer_ is None:
-        raise AlreadyFinalized("Context was already finalized.")
+        raise AlreadyFinalized(AlreadyFinalized_MESSAGE)
 
     utils._check_byteslike("data", data)
 
@@ -90,7 +91,7 @@ def _byte_unpadding_check(
     checkfn: typing.Callable[[bytes], int],
 ) -> bytes:
     if buffer_ is None:
-        raise AlreadyFinalized("Context was already finalized.")
+        raise AlreadyFinalized(AlreadyFinalized_MESSAGE)
 
     if len(buffer_) != block_size // 8:
         raise ValueError("Invalid padding bytes.")

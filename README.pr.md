@@ -1,13 +1,14 @@
 # SFTP
   
-Conectar e administrar um SFTP  
+Conecte e gerencie um SFTP  
 
-*Read this in other languages: [English](README.md), [Portugues](README.pr.md), [Español](README.es.md).*
+*Read this in other languages: [English](README.md), [Português](README.pr.md), [Español](README.es.md)*
 
 ## Como instalar este módulo
   
-__Baixe__ e __instale__ o conteúdo na pasta 'modules' no caminho do Rocketbot  
-
+Para instalar o módulo no Rocketbot Studio, pode ser feito de duas formas:
+1. Manual: __Baixe__ o arquivo .zip e descompacte-o na pasta módulos. O nome da pasta deve ser o mesmo do módulo e dentro dela devem ter os seguintes arquivos e pastas: \__init__.py, package.json, docs, example e libs. Se você tiver o aplicativo aberto, atualize seu navegador para poder usar o novo módulo.
+2. Automático: Ao entrar no Rocketbot Studio na margem direita você encontrará a seção **Addons**, selecione **Install Mods**, procure o módulo desejado e aperte instalar.  
 
 
 ## Overview
@@ -22,20 +23,24 @@ Mova-se para o diretório indicado pelo nome ou caminho absoluto
 3. Carregar arquivo  
 Carrega o arquivo para o diretório atual
 
-4. Renomear arquivo  
+4. Carregar pasta  
+Carrega a pasta para o diretório atual
+
+5. Renomear arquivo  
 Renomeia um arquivo que está no diretório atual
 
-5. Baixar arquivo  
+6. Baixar arquivo  
 Baixe o arquivo do diretório atual ou do caminho absoluto especificado
 
-6. Eliminar archivo  
+7. Eliminar archivo  
 Elimina um arquivo do diretório atual ou do caminho absoluto dado
 
-7. Listar arquivos em diretório  
-Lista os arquivos contidos em uma pasta  
+8. Listar arquivos em diretório  
+Lista os arquivos contidos em uma pasta
 
-8. Fechar conexão
-Fecha a conexão com o servidor
+9. Fechar conexão  
+Fecha a conexão com o servidor  
+
 
 
 

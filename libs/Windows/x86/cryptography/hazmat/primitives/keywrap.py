@@ -11,6 +11,8 @@ from cryptography.hazmat.primitives.ciphers.algorithms import AES
 from cryptography.hazmat.primitives.ciphers.modes import ECB
 from cryptography.hazmat.primitives.constant_time import bytes_eq
 
+VALID_AES_KEY_MESSAGE = "The wrapping key must be a valid AES key length"
+
 
 def _wrap_core(wrapping_key, a, r, backend):
     # RFC 3394 Key Wrap - 2.2.1 (index method)
@@ -35,7 +37,7 @@ def _wrap_core(wrapping_key, a, r, backend):
 
 def aes_key_wrap(wrapping_key, key_to_wrap, backend):
     if len(wrapping_key) not in [16, 24, 32]:
-        raise ValueError("The wrapping key must be a valid AES key length")
+        raise ValueError(VALID_AES_KEY_MESSAGE)
 
     if len(key_to_wrap) < 16:
         raise ValueError("The key to wrap must be at least 16 bytes")
@@ -70,7 +72,7 @@ def _unwrap_core(wrapping_key, a, r, backend):
 
 def aes_key_wrap_with_padding(wrapping_key, key_to_wrap, backend):
     if len(wrapping_key) not in [16, 24, 32]:
-        raise ValueError("The wrapping key must be a valid AES key length")
+        raise ValueError(VALID_AES_KEY_MESSAGE)
 
     aiv = b"\xA6\x59\x59\xA6" + struct.pack(">i", len(key_to_wrap))
     # pad the key to wrap if necessary
@@ -92,7 +94,7 @@ def aes_key_unwrap_with_padding(wrapping_key, wrapped_key, backend):
         raise InvalidUnwrap("Must be at least 16 bytes")
 
     if len(wrapping_key) not in [16, 24, 32]:
-        raise ValueError("The wrapping key must be a valid AES key length")
+        raise ValueError(VALID_AES_KEY_MESSAGE)
 
     if len(wrapped_key) == 16:
         # RFC 5649 - 4.2 - exactly two 64-bit blocks
@@ -138,7 +140,7 @@ def aes_key_unwrap(wrapping_key, wrapped_key, backend):
         raise InvalidUnwrap("The wrapped key must be a multiple of 8 bytes")
 
     if len(wrapping_key) not in [16, 24, 32]:
-        raise ValueError("The wrapping key must be a valid AES key length")
+        raise ValueError(VALID_AES_KEY_MESSAGE)
 
     aiv = b"\xa6\xa6\xa6\xa6\xa6\xa6\xa6\xa6"
     r = [wrapped_key[i:i + 8] for i in range(0, len(wrapped_key), 8)]

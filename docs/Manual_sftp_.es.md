@@ -2,13 +2,14 @@
   
 Conecta y gestiona un SFTP  
 
-*Read this in other languages: [English](Manual_sftp.md), [Portugues](Manual_sftp.pr.md), [Español](Manual_sftp.es.md).*
-  
+*Read this in other languages: [English](Manual_sftp_.md), [Português](Manual_sftp_.pr.md), [Español](Manual_sftp_.es.md)*
+
 ![banner](imgs/Banner_sftp_.png)
 ## Como instalar este módulo
   
-__Descarga__ e __instala__ el contenido en la carpeta 'modules' en la ruta de Rocketbot.  
-
+Para instalar el módulo en Rocketbot Studio, se puede hacer de dos formas:
+1. Manual: __Descargar__ el archivo .zip y descomprimirlo en la carpeta modules. El nombre de la carpeta debe ser el mismo al del módulo y dentro debe tener los siguientes archivos y carpetas: \__init__.py, package.json, docs, example y libs. Si tiene abierta la aplicación, refresca el navegador para poder utilizar el nuevo modulo.
+2. Automática: Al ingresar a Rocketbot Studio sobre el margen derecho encontrara la sección de **Addons**, seleccionar **Install Mods**, buscar el modulo deseado y presionar install.  
 
 
 ## Descripción de los comandos
@@ -41,6 +42,15 @@ Sube el archivo al directorio actual
 | --- | --- | --- |
 |Archivo a subir|Seleccione el archivo a subir|C:/Users/Usuario/Desktop/test.png|
 |Nombre de directorio|Nombre del directorio donde se subirá el archivo|/home/ftp/uploads|
+|Asignar resultado en variable|Asigna el resultado de la operación a una variable|Variable|
+
+### Subir carpeta
+  
+Sube la carpeta al directorio actual
+|Parámetros|Descripción|ejemplo|
+| --- | --- | --- |
+|Carpeta a subir|Seleccione la carpeta a subir|C:/Users/Usuario/Desktop/test|
+|Nombre de directorio|Nombre del directorio donde se subirá la carpeta|/home/ftp/uploads|
 |Asignar resultado en variable|Asigna el resultado de la operación a una variable|Variable|
 
 ### Renombrar archivo
@@ -78,8 +88,8 @@ Lista los archivos contenidos en una carpeta
 |Guardar archivos listados en variable|Nombre de la variable donde se guardarán los archivos listados|Variable|
 
 ### Cerrar conexión
-
+  
 Cierra la conexión con el servidor
 |Parámetros|Descripción|ejemplo|
 | --- | --- | --- |
-|Guardar resultado de desconexión:|Variable donde se guardará el resultado de la desconexión|Variable|
+|Guardar resultado de desconexión|Variable donde se guardará el resultado de la desconexión|Variable|

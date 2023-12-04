@@ -8,6 +8,8 @@ import abc
 from cryptography.exceptions import UnsupportedAlgorithm, _Reasons
 from cryptography.hazmat.primitives import _serialization
 
+UnsupportedAlgorithm_STR = "X448 is not supported by this version of OpenSSL."
+
 
 class X448PublicKey(metaclass=abc.ABCMeta):
     @classmethod
@@ -16,7 +18,7 @@ class X448PublicKey(metaclass=abc.ABCMeta):
 
         if not backend.x448_supported():
             raise UnsupportedAlgorithm(
-                "X448 is not supported by this version of OpenSSL.",
+                UnsupportedAlgorithm_STR,
                 _Reasons.UNSUPPORTED_EXCHANGE_ALGORITHM,
             )
 
@@ -40,7 +42,7 @@ class X448PrivateKey(metaclass=abc.ABCMeta):
 
         if not backend.x448_supported():
             raise UnsupportedAlgorithm(
-                "X448 is not supported by this version of OpenSSL.",
+                UnsupportedAlgorithm_STR,
                 _Reasons.UNSUPPORTED_EXCHANGE_ALGORITHM,
             )
         return backend.x448_generate_key()
@@ -51,7 +53,7 @@ class X448PrivateKey(metaclass=abc.ABCMeta):
 
         if not backend.x448_supported():
             raise UnsupportedAlgorithm(
-                "X448 is not supported by this version of OpenSSL.",
+                UnsupportedAlgorithm_STR,
                 _Reasons.UNSUPPORTED_EXCHANGE_ALGORITHM,
             )
 
