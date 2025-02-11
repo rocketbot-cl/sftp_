@@ -1,3 +1,7 @@
+
+
+
+
 # SFTP
   
 Conecta y gestiona un SFTP  
@@ -38,7 +42,13 @@ Elimina un archivo del directorio actual o desde la ruta absoluta indicada
 8. Listar archivos en directorio  
 Lista los archivos contenidos en una carpeta
 
-9. Cerrar conexión  
+9. Crear carpeta  
+Crea una carpeta en el directorio actual o en la ruta indicada
+
+10. Eliminar carpeta  
+Elimina una carpeta del directorio actual o desde la ruta absoluta indicada
+
+11. Cerrar conexión  
 Cierra la conexión con el servidor  
 
 

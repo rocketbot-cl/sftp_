@@ -311,7 +311,36 @@ try:
             res = False
 
         SetVar(var_, res)
-        
+    
+    if module == "create_folder":
+        folder_ = GetParams("folder_")
+        var_ = GetParams("var_")
+        try:
+            pconn.mkdir(folder_)
+            SetVar(var_, True)
+        except Exception as e:
+            SetVar(var_, False)
+            import traceback
+            traceback.print_exc(e)
+            raise e
+
+    if module == "delete_folder":
+        folder_ = GetParams("folder_")
+        var_ = GetParams("var_")
+
+        try:
+            if pconn.isdir(folder_):
+                pconn.rmdir(folder_)
+                SetVar(var_, True)
+            else:
+                print("The item indicated is not a valid folder")
+        except Exception as e:
+            SetVar(var_, False)
+            import traceback
+            traceback.print_exc(e)
+            raise e
+
+
     if module == "close_":
         var_ = GetParams("var_")
         
