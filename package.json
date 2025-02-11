@@ -7,7 +7,7 @@
         "pr": "Conecte e gerencie um SFTP"
     },
     "disclaimer":"THERE IS NO WARRANTY FOR THE PROGRAM, TO THE EXTENT PERMITTED BY APPLICABLE LAW. EXCEPT WHEN OTHERWISE STATED IN WRITING THE COPYRIGHT HOLDERS AND/OR OTHER PARTIES PROVIDE THE PROGRAM “AS IS” WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS WITH YOU. SHOULD THE PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF ALL NECESSARY SERVICING, REPAIR OR CORRECTION.",
-    "version":"1.8.0",
+    "version":"1.8.1",
     "license": "MIT",
     "homepage":"http://rocketbot.com/",
     "linux": true,
@@ -922,11 +922,6 @@
                             "es": "Nombre de la carpeta a crear, si se indica solo el nombre se creará en el directorio actual. Indicar la ruta junto con el nombre para crear la carpeta en otro directorio.",
                             "en": "Folder name to create, if only the name is indicated, it will be created in the current directory. Indicate the path together with the name to create the folder in another directory.",
                             "pr": "Nome da pasta a criar, se indicar apenas o nome será criado no diretório atual. Indicar a rota junto com o nome para criar a pasta em outro diretório."
-                        },
-                        "help": {
-                            "es": "El nombre de la carpeta no debe comenzar con número",
-                            "en": "The folder name must not start with a number",
-                            "pr": "O nome da pasta não deve começar com um número"
                         },
                         "id": "folder_",
                         "css": "col-md-12"
