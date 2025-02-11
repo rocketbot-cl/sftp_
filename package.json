@@ -923,11 +923,6 @@
                             "en": "Folder name to create, if only the name is indicated, it will be created in the current directory. Indicate the path together with the name to create the folder in another directory.",
                             "pr": "Nome da pasta a criar, se indicar apenas o nome será criado no diretório atual. Indicar a rota junto com o nome para criar a pasta em outro diretório."
                         },
-                        "help": {
-                            "es": "El nombre de la carpeta no debe comenzar con número",
-                            "en": "The folder name must not start with a number",
-                            "pr": "O nome da pasta não deve começar com um número"
-                        },
                         "id": "folder_",
                         "css": "col-md-12"
                     },
