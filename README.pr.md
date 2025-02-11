@@ -1,3 +1,7 @@
+
+
+
+
 # SFTP
   
 Conecte e gerencie um SFTP  
@@ -38,7 +42,13 @@ Elimina um arquivo do diretório atual ou do caminho absoluto dado
 8. Listar arquivos em diretório  
 Lista os arquivos contidos em uma pasta
 
-9. Fechar conexão  
+9. Criar pasta  
+Cria uma pasta no diretório atual ou na rota indicada
+
+10. Eliminar pasta  
+Elimina um arquivo do diretório atual ou do caminho absoluto dado
+
+11. Fechar conexão  
 Fecha a conexão com o servidor  
 
 

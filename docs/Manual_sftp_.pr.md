@@ -1,3 +1,7 @@
+
+
+
+
 # SFTP
   
 Conecte e gerencie um SFTP  
@@ -86,6 +90,22 @@ Lista os arquivos contidos em uma pasta
 | --- | --- | --- |
 |Nome do diretório|Nome do diretório do qual os arquivos serão listados|/home/test|
 |Salvar arquivos listados na variável|Nome da variável onde os arquivos listados serão salvos|Variável|
+
+### Criar pasta
+  
+Cria uma pasta no diretório atual ou na rota indicada
+|Parâmetros|Descrição|exemplo|
+| --- | --- | --- |
+|Pasta|Nome da pasta a criar, se indicar apenas o nome será criado no diretório atual. Indicar a rota junto com o nome para criar a pasta em outro diretório.|NewFolder|
+|Atribuir resultado à variável|Atribui o resultado da execução do script à variável indicada|Variável|
+
+### Eliminar pasta
+  
+Elimina um arquivo do diretório atual ou do caminho absoluto dado
+|Parâmetros|Descrição|exemplo|
+| --- | --- | --- |
+|Pasta|Nome da pasta a eliminar, se indicar apenas o nome será eliminado no diretório atual. Indicar a rota junto com o nome para eliminar a pasta de outro diretório.|NewFolder|
+|Atribuir resultado à variável|Atribui o resultado da execução do script à variável indicada|Variável|
 
 ### Fechar conexão
   

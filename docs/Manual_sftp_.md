@@ -1,3 +1,7 @@
+
+
+
+
 # SFTP
   
 Connect and manage a SFTP  
@@ -86,6 +90,22 @@ Lists files inside a folder
 | --- | --- | --- |
 |Directory name|Directory name from which the files will be listed|/home/test|
 |Save listed files in variable|Name of the variable where the listed files will be saved|Variable|
+
+### Create folder
+  
+Create a folder in the current directory or in the indicated path
+|Parameters|Description|example|
+| --- | --- | --- |
+|Folder|Folder name to create, if only the name is indicated, it will be created in the current directory. Indicate the path together with the name to create the folder in another directory.|NewFolder|
+|Assign result to variable|Assigns the result of the script execution to the indicated variable|Variable|
+
+### Delete folder
+  
+Delete file from the current directory or from the specified absolute path
+|Parameters|Description|example|
+| --- | --- | --- |
+|Folder|Folder name to delete, if only the name is indicated, it will be deleted in the current directory. Indicate the path together with the name to delete the folder in another directory.|NewFolder|
+|Assign result to variable|Assigns the result of the script execution to the indicated variable|Variable|
 
 ### Close connection
   

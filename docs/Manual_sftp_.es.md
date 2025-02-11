@@ -1,9 +1,13 @@
+
+
+
+
 # SFTP
   
 Conecta y gestiona un SFTP  
 
 *Read this in other languages: [English](Manual_sftp_.md), [Português](Manual_sftp_.pr.md), [Español](Manual_sftp_.es.md)*
-
+  
 ![banner](imgs/Banner_sftp_.png)
 ## Como instalar este módulo
   
@@ -86,6 +90,22 @@ Lista los archivos contenidos en una carpeta
 | --- | --- | --- |
 |Nombre del directorio|Nombre del directorio del cual se listarán los archivos|/home/test|
 |Guardar archivos listados en variable|Nombre de la variable donde se guardarán los archivos listados|Variable|
+
+### Crear carpeta
+  
+Crea una carpeta en el directorio actual o en la ruta indicada
+|Parámetros|Descripción|ejemplo|
+| --- | --- | --- |
+|Carpeta|Nombre de la carpeta a crear, si se indica solo el nombre se creará en el directorio actual. Indicar la ruta junto con el nombre para crear la carpeta en otro directorio.|NewFolder|
+|Asignar resultado en variable|Asigna el resultado de la ejecución del script a la variable indicada|Variable|
+
+### Eliminar carpeta
+  
+Elimina una carpeta del directorio actual o desde la ruta absoluta indicada
+|Parámetros|Descripción|ejemplo|
+| --- | --- | --- |
+|Carpeta|Nombre de la carpeta a eliminar, si se indica solo el nombre se eliminará la carpeta del directorio actual. Indicar la ruta junto con el nombre para eliminar la carpeta de otro directorio.|NewFolder|
+|Asignar resultado en variable|Asigna el resultado de la ejecución del script a la variable indicada|Variable|
 
 ### Cerrar conexión
   

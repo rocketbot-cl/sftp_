@@ -1,3 +1,7 @@
+
+
+
+
 # SFTP
   
 Connect and manage a SFTP  
@@ -38,7 +42,13 @@ Delete file from the current directory or from the specified absolute path
 8. List files in directory  
 Lists files inside a folder
 
-9. Close connection  
+9. Create folder  
+Create a folder in the current directory or in the indicated path
+
+10. Delete folder  
+Delete file from the current directory or from the specified absolute path
+
+11. Close connection  
 Close the connection to the server  
 
 
